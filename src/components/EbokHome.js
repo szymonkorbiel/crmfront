@@ -14,7 +14,7 @@ const EbokHome = () => {
 
   const handleTabClick = (tabId) => {
     setSelectedTab(tabId);
-  };
+  };//aaaaaaaaaaa
 
   return (
     <div className="home-container">
