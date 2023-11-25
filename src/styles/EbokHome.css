@@ -1,0 +1,47 @@
+.home-container {
+  display: flex;
+  padding: 20px;
+}
+
+.left-aaa {
+  width: 20% !important;
+  padding: 0 10px;
+
+}
+
+.right-aa {
+  width: 80%;
+  padding: 0 10px;
+  border: 3px solid black;
+}
+
+.tabs-container {
+  width: 20%;
+}
+.list{
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  max-width: 20%;
+  color: blue;
+  margin: 0;
+  padding: 0;
+}
+
+.tab:hover {
+  background-color: #e0e0e0;
+}
+
+.tab.active {
+  background-color: #ffffff;
+  font-weight: bold;
+  color: red;
+}
+
+

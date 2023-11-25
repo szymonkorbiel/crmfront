@@ -1,0 +1,45 @@
+.bg-div {
+    background-image: url('../assets/graphics/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 80vh;
+    position: relative;
+}
+
+.transparent-div {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    width: 90%;
+    max-width: 100%;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.contact-h3 {
+    margin: 0;
+}
+
+.contact-p {
+    margin: 0;
+}
+
+
+section:nth-child(even) .contact-h3, section:nth-child(even) .contact-p {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+
+section:nth-child(odd) .contact-h3, section:nth-child(odd) .contact-p {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+
+@media screen and (max-height: 800px) {
+    .transparent-div {
+        position: static;
+        transform: none;
+    }
+}

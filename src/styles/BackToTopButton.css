@@ -1,0 +1,39 @@
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .back-to-top-button {
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  
+  .back-to-top-button span {
+    font-size: 25px;
+    color: grey;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  
+  .back-to-top-button:hover {
+    background-color: black;
+    transform: translateY(-10px);
+  }
+  
+  

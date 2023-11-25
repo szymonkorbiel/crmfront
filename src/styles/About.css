@@ -1,0 +1,40 @@
+.about-container {
+    display: flex;
+  }
+  
+  .list {
+    width: 200px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+  }
+  
+  .list ul {
+    list-style: none;
+    padding: 0;
+    position: sticky;
+    top: 120px; /* Dostosuj odpowiednią wartość top */
+  }
+  
+  .list ul li {
+    margin-bottom: 10px;
+  }
+  
+  .content {
+    padding-left: 20px;
+    background-image: url('../assets/graphics/bg.jpg'); 
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center; 
+  }
+  
+  /* Dodatkowe style, takie jak linki do kotwic */
+  .list ul li a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .list ul li a:hover {
+    color: #ff9900; /* Kolor tekstu po najechaniu myszką */
+  }
+  

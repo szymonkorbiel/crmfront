@@ -1,0 +1,22 @@
+
+.footer-container {
+    color: lightgray;
+    background-color: #1c2440; /* jasnoszary kolor tła */
+    display: flex; /* aby kolumny były obok siebie */
+    padding: 10px; /* wewnętrzny odstęp dla kontenera footera */
+    font-size: 15px; /* czcionka o wielkości 8px */
+}
+
+.footer-column {
+    flex: 1; /* równa szerokość dla każdej kolumny */
+    padding: 5px; /* wewnętrzny odstęp dla każdej kolumny */
+}
+
+.footer-column h4 {
+    margin-top: 0; /* usuwa domyślny górny margines dla nagłówków */
+    margin-bottom: 5px; /* mniejszy odstęp pod nagłówkiem */
+}
+
+.footer-column p {
+    margin: 2px 0; /* mniejsze odstępy między wierszami */
+}

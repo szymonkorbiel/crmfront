@@ -1,0 +1,115 @@
+.header {
+    display: flex;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-image: linear-gradient(to bottom right, white , navy);
+    height: 10vh;
+
+}
+
+.header-left, .header-center {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.header-left p{
+    margin: 2vh;
+}
+
+.header-center {
+    text-align: center;
+    justify-content: center;
+}
+
+.header-center ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.header-center li {
+    margin: 0 15px;
+}
+
+.header-center a {
+    text-decoration: none; 
+    color: #333; 
+    padding: 5px 10px; 
+    position: relative;
+}
+
+
+.header-center a::before {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-center a:hover::before {
+    width: 100%;
+    left: 0;
+}
+
+.header-center a:hover {
+    color: white;
+}
+
+
+.header-right {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header-right p {
+    margin: 2vh;
+}
+
+.logo {
+    width: 100px; 
+    height: auto;
+    margin-left: 20px; 
+}
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #f7f7f7;
+    margin-right: 2vh;
+    position: relative;
+}
+
+a:hover {
+    color: grey;
+    transition: all 0.3s ease-in-out;
+}
+
+a::before {
+    content: ""; 
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #f7f7f7; 
+    transition: all 0.3s ease-in-out;
+    bottom: -3px;
+}
+
+a:hover::before {
+    width: 100%;
+    left: 0;
+    background-color: white; 
+}
+
+
