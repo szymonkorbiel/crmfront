@@ -1,6 +1,7 @@
 // Importy
 import React, { useState, useEffect } from 'react';
-
+import instance from '../../externals/instance';
+import AuthService from '../../externals/auth';
 // Komponent Settings
 const Settings = () => {
   // Stan dla szczegółów ustawień
@@ -9,9 +10,9 @@ const Settings = () => {
   // Funkcja pobierająca szczegóły ustawień
   const fetchSettingsDetails = async (customerId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/customers/settings/${customerId}/detail`);
+      const response = await instance.get(`http://localhost:8000/api/public/customers/settings/${customerId}/detail`);
       const data = await response.json();
-      setSettingsDetails(data);
+      setSettingsDetails(data.settings);  // Ustawienie tylko danych z sekcji "settings"
     } catch (error) {
       console.error('Error fetching settings details:', error);
     }
@@ -27,7 +28,7 @@ const Settings = () => {
           // Dodaj dodatkowe nagłówki, jeśli są wymagane
         },
         // Dodaj dane, jeśli są wymagane do aktualizacji
-        // body: JSON.stringify({ key: 'value' }),
+        body: JSON.stringify(settingsDetails),  // Użycie aktualnych danych ustawień
       });
 
       // Sprawdź, czy aktualizacja zakończyła się sukcesem
@@ -45,7 +46,7 @@ const Settings = () => {
   // Efekt pobierający szczegóły ustawień po zamontowaniu komponentu
   useEffect(() => {
     // Przykładowe ID klienta (może być pobrane od użytkownika)
-    const customerId = 1;
+    const customerId = "018c68d6-4e01-7edb-a124-f74afe28a937";
     fetchSettingsDetails(customerId);
   }, []);
 
@@ -57,12 +58,16 @@ const Settings = () => {
       {settingsDetails && (
         <div>
           <p>ID: {settingsDetails.id}</p>
-          {/* Dodaj pozostałe informacje zgodnie z odpowiedzią z API */}
+          <p>Email Notification: {settingsDetails.emailNotification.toString()}</p>
+          <p>SMS Notification: {settingsDetails.smsNotification.toString()}</p>
+          <p>Two-Factor: {settingsDetails.twoFactor.toString()}</p>
         </div>
       )}
 
       {/* Przykład aktualizacji ustawień */}
-      <button onClick={() => updateSettings(settingsDetails.id)}>Update Settings</button>
+      {settingsDetails && (
+        <button onClick={() => updateSettings(settingsDetails.id)}>Update Settings</button>
+      )}
     </div>
   );
 };

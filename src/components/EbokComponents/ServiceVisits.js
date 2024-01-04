@@ -58,17 +58,22 @@ const ServiceVisits = () => {
   // Renderowanie komponentu
   return (
     <div>
-      {/* Wyświetlenie listy wizyt serwisowych */}
-      <h2>Service Visits List</h2>
-      <ul>
-        {serviceVisitsList.map((visit) => (
-          <li key={visit.id}>
-            {visit.date} - {visit.description} -{' '}
-            <button onClick={() => fetchServiceVisitDetails(visit.id)}>Details</button>
-            <button onClick={() => cancelServiceVisit(visit.id)}>Cancel</button>
-          </li>
-        ))}
-      </ul>
+{/* Wyświetlenie listy wizyt serwisowych */}
+<h2>Service Visits List</h2>
+<ul>
+  {Array.isArray(serviceVisitsList) && serviceVisitsList.length > 0 ? (
+    serviceVisitsList.map((visit) => (
+      <li key={visit.id}>
+        {visit.date} - {visit.description} -{' '}
+        <button onClick={() => fetchServiceVisitDetails(visit.id)}>Details</button>
+        <button onClick={() => cancelServiceVisit(visit.id)}>Cancel</button>
+      </li>
+    ))
+  ) : (
+    <p>No service visits available.</p>
+  )}
+</ul>
+
 
       {/* Wyświetlenie szczegółów wybranej wizyty serwisowej */}
       {selectedServiceVisit && (

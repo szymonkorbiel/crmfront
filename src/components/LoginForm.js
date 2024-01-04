@@ -27,7 +27,7 @@ function LoginForm({ setUser }) {
         const decoded = jwtDecode(response.token);
         AuthService.login(response.token, response.refresh_token, response.user, decoded.exp);
         setUser(response.user);
-        navigate('/ebokhome');
+        navigate('/ebokhome/profile');
         window.location.reload();
       } else {
         console.error('Nieprawidłowe dane użytkownika w odpowiedzi:', response.user);

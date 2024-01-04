@@ -38,15 +38,18 @@ const Models = () => {
   // Renderowanie komponentu
   return (
     <div>
-      {/* Wyświetlenie listy modeli */}
       <h2>Models List</h2>
-      <ul>
-        {modelsList.map((model) => (
-          <li key={model.id}>
-            {model.name} - <button onClick={() => fetchModelDetails(model.id)}>Details</button>
-          </li>
-        ))}
-      </ul>
+<ul>
+  {Array.isArray(modelsList) && modelsList.length > 0 ? (
+    modelsList.map((model) => (
+      <li key={model.id}>
+        {model.name} - <button onClick={() => fetchModelDetails(model.id)}>Details</button>
+      </li>
+    ))
+  ) : (
+    <p>No models available.</p>
+  )}
+</ul>
 
       {/* Wyświetlenie szczegółów wybranego modelu */}
       {selectedModel && (

@@ -109,17 +109,18 @@ export const loginUser = async (credentials) => {
 };
 
 
-export const verifyEmail = async ({ emailToken, email, query }) => {
+export const verifyEmail = async ({ email, query }) => {
   try {
-    if (!emailToken || !email) {
+    if (!query || !email) {
       throw new Error('Brak tokena weryfikacyjnego lub adresu e-mail.');
     }
 
     const confirmLink = `http://localhost:8000/api/register/confirm${query}`;
-    const response = await instance.post(confirmLink); // Użyj instancji 'instance'
+    const response = await axios.post(confirmLink, {email:email}); // Użyj instancji 'instance'
 
     if (response.status === 200) {
-      // Możesz zwrócić dowolne dane, które chcesz przekazać dalej
+      window.location.href = '/loginform';
+      alert('pomyślnie zweryfikowano');
       return response.data;
     } else {
       throw new Error('Błąd weryfikacji. Nieprawidłowa odpowiedź z serwera.');

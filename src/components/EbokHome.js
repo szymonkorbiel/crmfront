@@ -1,9 +1,31 @@
-import React from 'react';
-import { Link, Routes, Route, BrowserRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Routes, Route } from 'react-router-dom';
 import '../styles/EbokHome.css';
+import Profile from './EbokComponents/Profile';
+import Invoices from './EbokComponents/Invoices';
+import Contracts from './EbokComponents/Contracts';
+import Addresses from './EbokComponents/Addresses';
+import Settings from './EbokComponents/Settings';
+import Messages from './EbokComponents/Messages';
+import Models from './EbokComponents/Models';
+import Offers from './EbokComponents/Offers';
+import Payments from './EbokComponents/Payments';
+import ServiceRequests from './EbokComponents/ServiceRequests';
+import ServiceVisits from './EbokComponents/ServiceVisits';
+
+const TabLink = ({ to, label, selectedTab, onClick }) => {
+  const isActive = selectedTab === label;
+  return (
+    <div className={`eboktab ${isActive ? 'active' : ''}`} onClick={() => onClick(label)}>
+      <Link to={to} className={`eboktab-link ${isActive ? 'active' : ''}`}>
+        {label}
+      </Link>
+    </div>
+  );
+};
 
 const EbokHome = () => {
-  const [selectedTab, setSelectedTab] = React.useState('Profile');
+  const [selectedTab, setSelectedTab] = useState('Profile');
 
   const handleTabClick = (tabId) => {
     setSelectedTab(tabId);
@@ -12,134 +34,33 @@ const EbokHome = () => {
   return (
     <div className="home-container">
       <div className="left-aaa">
-
-         
-      <div
-    className={`eboktab ${selectedTab === 'Profile' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Profile')}
-  >
-    <Link to="/ebokhome/profile" className={`eboktab-link ${selectedTab === 'Profile' ? 'active' : ''}`}>
-  Profile
-</Link>
-  </div>
-         
-         
-          <div
-            className={`eboktab ${selectedTab === 'Invoices' ? 'active' : ''}`}
-            onClick={() => handleTabClick('Invoices')}
-          >
-            <Link to="/ebokhome/invoices" className={`eboktab-link ${selectedTab === 'Invoices' ? 'active' : ''}`}>
-  Invoices
-</Link>
-          </div>
-          <div
-    className={`eboktab ${selectedTab === 'Contracts' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Contracts')}
-  >
-    <Link to="/ebokhome/contracts" className={`eboktab-link ${selectedTab === 'Contracts' ? 'active' : ''}`}>
-  Contracts
-</Link>
-  </div>
-
-
-  <div
-    className={`eboktab ${selectedTab === 'Addresses' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Addresses')}
-  >
-    <Link to="/ebokhome/addresses" className={`eboktab-link ${selectedTab === 'Addresses' ? 'active' : ''}`}>
-  Addresses
-</Link>
-  </div>
-
-  <div
-    className={`eboktab ${selectedTab === 'Settings' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Settings')}
-  >
-    <Link to="/ebokhome/settings" className={`eboktab-link ${selectedTab === 'Settings' ? 'active' : ''}`}>
-  Settings
-</Link>
-  </div>
-
-
-  <div
-    className={`eboktab ${selectedTab === 'Documents' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Documents')}
-  >
-    <Link to="/ebokhome/documents" className={`eboktab-link ${selectedTab === 'Documents' ? 'active' : ''}`}>
-  Documents
-</Link>
-  </div>
-
-
-  <div
-    className={`eboktab ${selectedTab === 'Messages' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Messages')}
-  >
-    <Link to="/ebokhome/messages" className={`eboktab-link ${selectedTab === 'Messages' ? 'active' : ''}`}>
-  Messages
-</Link>
-  </div>
-
-
-
-  <div
-    className={`eboktab ${selectedTab === 'Models' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Models')}
-  >
-    <Link to="/ebokhome/models" className={`eboktab-link ${selectedTab === 'Models' ? 'active' : ''}`}>
-  Models
-</Link>
-  </div>
-
-
-
-  <div
-    className={`eboktab ${selectedTab === 'Offers' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Offers')}
-  >
-    <Link to="/ebokhome/offers" className={`eboktab-link ${selectedTab === 'Offers' ? 'active' : ''}`}>
-  Offers
-</Link>
-  </div>
-
-
-
-  <div
-    className={`eboktab ${selectedTab === 'Payments' ? 'active' : ''}`}
-    onClick={() => handleTabClick('Payments')}
-  >
-    
-<Link to="/ebokhome/payments" className={`eboktab-link ${selectedTab === 'Payments' ? 'active' : ''}`}>
-  Payments
-</Link>
-  </div>
-
-
-  <div
-    className={`eboktab ${selectedTab === 'ServiceRequests' ? 'active' : ''}`}
-    onClick={() => handleTabClick('ServiceRequests')}
-  >
-    <Link to="/ebokhome/service-requests" className={`eboktab-link ${selectedTab === 'ServiceRequests' ? 'active' : ''}`}>
-  Service Requests
-</Link>
-  </div>
-
-
-
-  <div
-    className={`eboktab ${selectedTab === 'ServiceVisits' ? 'active' : ''}`}
-    onClick={() => handleTabClick('ServiceVisits')}
-  >
-   <Link to="/ebokhome/service-visits" className={`eboktab-link ${selectedTab === 'ServiceVisits' ? 'active' : ''}`}>
-  Service Visits
-</Link>
-  </div>
-
+        <TabLink to="/ebokhome/profile" label="Profile" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/invoices" label="Invoices" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/contracts" label="Contracts" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/addresses" label="Addresses" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/settings" label="Settings" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/messages" label="Messages" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/models" label="Models" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/offers" label="Offers" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/payments" label="Payments" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/service-requests" label="Service Requests" selectedTab={selectedTab} onClick={handleTabClick} />
+        <TabLink to="/ebokhome/service-visits" label="Service Visits" selectedTab={selectedTab} onClick={handleTabClick} />
       </div>
       <div className="right-aa">
         {/* Zawartość dla prawej kolumny */}
-
-       
+        <Routes>
+          <Route path="profile" element={<Profile />} />
+          <Route path="invoices" element={<Invoices />} />
+          <Route path="contracts" element={<Contracts />} />
+          <Route path="addresses" element={<Addresses />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="messages" element={<Messages />} />
+          <Route path="models" element={<Models />} />
+          <Route path="offers" element={<Offers />} />
+          <Route path="payments" element={<Payments />} />
+          <Route path="service-requests" element={<ServiceRequests />} />
+          <Route path="service-visits" element={<ServiceVisits />} />
+        </Routes>
       </div>
     </div>
   );

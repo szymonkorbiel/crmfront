@@ -1,7 +1,7 @@
 
 .footer-container {
-    color: lightgray;
-    background-color: #1c2440; /* jasnoszary kolor tła */
+    color: white;
+    background-color: grey; /* jasnoszary kolor tła */
     display: flex; /* aby kolumny były obok siebie */
     padding: 10px; /* wewnętrzny odstęp dla kontenera footera */
     font-size: 15px; /* czcionka o wielkości 8px */

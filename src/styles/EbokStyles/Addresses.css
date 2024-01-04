@@ -1,0 +1,90 @@
+/* Addresses.css */
+.circle-icon {
+    float: right;
+    width: 10%;
+}
+.address-list {
+    margin-top: 20px;
+  }
+  
+  .address-list h2 {
+    color: #333;
+  }
+  
+  .address-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .address-list li {
+    background-color: #ffb766;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .address-list li:hover {
+    background-color: #f43a09;
+    color: #fff;
+  }
+  
+  .address-list button {
+    background-color: #ffb766;
+    color: #333;
+    border: 2px solid #333;
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .address-list button:hover {
+    background-color: #f43a09;
+    color: #fff;
+  }
+  
+  .address-list button:active {
+    background-color: #333;
+    color: #fff;
+  }
+  
+
+.address-form {
+    
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .address-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+  }
+  
+  .address-form button {
+    background-color: #ffb766;
+    color: #333;
+    border: 2px solid #333;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .address-form button:hover {
+    background-color: #f43a09;
+    color: #fff;
+  }
+  
+  .address-form button:active {
+    background-color: #333;
+    color: #fff;
+  }
+  

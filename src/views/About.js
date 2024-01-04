@@ -7,13 +7,13 @@ function About() {
             <div className="list">
                 <ul>
                     <li><a href="#historia-firmy">Historia firmy</a></li>
-                    <li><a href="#mapa-zasięgu">Mapa zasięgu</a></li>
+                    <li><a href="#mapa-zasiegu">Mapa zasięgu</a></li>
                     <li><a href="#technologia-ftth">Technologia FTTH</a></li>
                 </ul>
             </div>
 
             <div className="content">
-                <h1>O nas</h1>
+                <h1>Trochę informacji o naszej firmie</h1>
                 
                 <section id="historia-firmy">
                     <h2>Historia firmy</h2>
@@ -34,9 +34,9 @@ function About() {
                 </section>
                 
                 {/* Sekcja: Mapa zasięgu */}
-                <section id="mapa-zasięgu">
+                <section id="mapa-zasiegu">
                     <h2>Mapa zasięgu</h2>
-                    <p>narazie robocza pozniej bez autora i z wyszukiwarką lokalizacji dla klienta</p>
+                    <p>Sprawdź czy zasięg naszej sieci Cię obejmuje: narazie robocza pozniej bez autora i z wyszukiwarką lokalizacji dla klienta</p>
                     <iframe src="https://www.google.com/maps/d/embed?mid=1QyOo_IBBZALq7HoWlDPc4KrCFX3P_Lg&ehbc=2E312F" width="640" height="480"></iframe>
                 </section>
                 

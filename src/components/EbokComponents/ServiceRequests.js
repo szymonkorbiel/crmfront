@@ -86,17 +86,21 @@ const ServiceRequests = () => {
   // Renderowanie komponentu
   return (
     <div>
-      {/* Wyświetlenie listy żądań serwisowych */}
-      <h2>Service Requests List</h2>
-      <ul>
-        {serviceRequestsList.map((request) => (
-          <li key={request.id}>
-            {request.date} - {request.description} -{' '}
-            <button onClick={() => fetchServiceRequestDetails(request.id)}>Details</button>
-            <button onClick={() => cancelServiceRequest(request.id)}>Cancel</button>
-          </li>
-        ))}
-      </ul>
+{/* Wyświetlenie listy żądań serwisowych */}
+<h2>Service Requests List</h2>
+<ul>
+  {Array.isArray(serviceRequestsList) && serviceRequestsList.length > 0 ? (
+    serviceRequestsList.map((request) => (
+      <li key={request.id}>
+        {request.date} - {request.description} -{' '}
+        <button onClick={() => fetchServiceRequestDetails(request.id)}>Details</button>
+        <button onClick={() => cancelServiceRequest(request.id)}>Cancel</button>
+      </li>
+    ))
+  ) : (
+    <p>No service requests available.</p>
+  )}
+</ul>
 
       {/* Wyświetlenie szczegółów wybranego żądania serwisowego */}
       {selectedServiceRequest && (

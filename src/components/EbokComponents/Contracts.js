@@ -39,14 +39,19 @@ const Contracts = () => {
   return (
     <div>
       {/* Wyświetlenie listy kontraktów */}
-      <h2>Contracts List</h2>
-      <ul>
-        {contractsList.map((contract) => (
-          <li key={contract.id}>
-            {contract.name} - <button onClick={() => fetchContractDetails(contract.id)}>Details</button>
-          </li>
-        ))}
-      </ul>
+<h2>Contracts List</h2>
+<ul>
+  {Array.isArray(contractsList) && contractsList.length > 0 ? (
+    contractsList.map((contract) => (
+      <li key={contract.id}>
+        {contract.name} - <button onClick={() => fetchContractDetails(contract.id)}>Details</button>
+      </li>
+    ))
+  ) : (
+    <p>No contracts available.</p>
+  )}
+</ul>
+
 
       {/* Wyświetlenie szczegółów wybranego kontraktu */}
       {selectedContract && (

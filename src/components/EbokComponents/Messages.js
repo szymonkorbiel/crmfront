@@ -25,15 +25,20 @@ const Messages = () => {
   // Renderowanie komponentu
   return (
     <div>
-      {/* Wyświetlenie listy wiadomości */}
-      <h2>Messages List</h2>
-      <ul>
-        {messagesList.map((message) => (
-          <li key={message.id}>
-            <strong>{message.subject}</strong> - {message.body}
-          </li>
-        ))}
-      </ul>
+
+<h2>Messages List</h2>
+<ul>
+  {Array.isArray(messagesList) && messagesList.length > 0 ? (
+    messagesList.map((message) => (
+      <li key={message.id}>
+        <strong>{message.subject}</strong> - {message.body}
+      </li>
+    ))
+  ) : (
+    <p>No messages available.</p>
+  )}
+</ul>
+
     </div>
   );
 };

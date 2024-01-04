@@ -22,10 +22,6 @@
   
   .content {
     padding-left: 20px;
-    background-image: url('../assets/graphics/bg.jpg'); 
-    background-size: cover;
-    background-repeat: no-repeat; 
-    background-position: center; 
   }
   
   /* Dodatkowe style, takie jak linki do kotwic */
@@ -35,6 +31,13 @@
   }
   
   .list ul li a:hover {
-    color: #ff9900; /* Kolor tekstu po najechaniu myszką */
+    color: #ffb766; /* Kolor tekstu po najechaniu myszką */
+  }
+  
+  h1{
+    color: #68d388;
+  }
+  h2{
+    color: #ffb766;
   }
   

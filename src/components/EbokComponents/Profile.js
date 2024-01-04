@@ -1,4 +1,3 @@
-// Importy
 import React, { useState, useEffect } from 'react';
 
 // Komponent Profile
@@ -58,8 +57,24 @@ const Profile = () => {
       {profileDetails ? (
         <div>
           <p>ID: {profileDetails.id}</p>
-          <p>Name: {profileDetails.name}</p>
+          <p>First Name: {profileDetails.firstName}</p>
+          <p>Last Name: {profileDetails.lastName}</p>
           <p>Email: {profileDetails.email}</p>
+          <p>Phone Number: {profileDetails.phoneNumber}</p>
+          <p>Is Verified: {profileDetails.isVerified ? 'Yes' : 'No'}</p>
+          <p>Is Active: {profileDetails.isActive ? 'Yes' : 'No'}</p>
+          <p>Social Security Number: {profileDetails.socialSecurityNumber}</p>
+          <p>Birth Date: {profileDetails.birthDate?.date}</p>
+          <p>Two Factor Auth: {profileDetails.twoFactorAuth ? 'Yes' : 'No'}</p>
+          <p>SMS Notification: {profileDetails.smsNotification ? 'Yes' : 'No'}</p>
+          <p>Email Notification: {profileDetails.emailNotification ? 'Yes' : 'No'}</p>
+          <p>Number of Contracts: {profileDetails.numberOfContracts}</p>
+          <p>Number of Devices: {profileDetails.numberOfDevices}</p>
+          <p>Number of Service Requests: {profileDetails.numberOfServiceRequests}</p>
+          <p>Number of Bills: {profileDetails.numberOfBills}</p>
+          <p>Number of Payments: {profileDetails.numberOfPayments}</p>
+          <p>Number of Messages: {profileDetails.numberOfMessages}</p>
+          {/* Dodaj pozostałe informacje zgodnie z odpowiedzią z API */}
         </div>
       ) : (
         <p>Loading profile details...</p>

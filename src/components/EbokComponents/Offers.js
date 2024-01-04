@@ -38,15 +38,20 @@ const Offers = () => {
   // Renderowanie komponentu
   return (
     <div>
-      {/* Wyświetlenie listy ofert */}
-      <h2>Offers List</h2>
-      <ul>
-        {offersList.map((offer) => (
-          <li key={offer.id}>
-            {offer.name} - <button onClick={() => fetchOfferDetails(offer.id)}>Details</button>
-          </li>
-        ))}
-      </ul>
+ {/* Wyświetlenie listy ofert */}
+<h2>Offers List</h2>
+<ul>
+  {Array.isArray(offersList) && offersList.length > 0 ? (
+    offersList.map((offer) => (
+      <li key={offer.id}>
+        {offer.name} - <button onClick={() => fetchOfferDetails(offer.id)}>Details</button>
+      </li>
+    ))
+  ) : (
+    <p>No offers available.</p>
+  )}
+</ul>
+
 
       {/* Wyświetlenie szczegółów wybranej oferty */}
       {selectedOffer && (

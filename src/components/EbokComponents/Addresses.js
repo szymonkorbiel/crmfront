@@ -1,7 +1,9 @@
 // Importy
 import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
-
+import AuthService from '../../externals/auth';
+import '../../styles/EbokStyles/Addresses.css';
+import circleIcon from '../../assets/graphics/circle.png';
 // Komponent Addresses
 const Addresses = () => {
   // Stan dla listy adresów
@@ -10,6 +12,12 @@ const Addresses = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   // Stan dla nowego adresu
   const [newAddress, setNewAddress] = useState('');
+  const [newZipCode, setNewZipCode] = useState('');
+  const [newCountry, setNewCountry] = useState('');
+  const [newCity, setNewCity] = useState('');
+
+  const [contextMenuVisible, setContextMenuVisible] = useState(false);
+  const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
 
   // Funkcja pobierająca listę adresów
   const fetchAddressesList = async () => {
@@ -35,24 +43,16 @@ const Addresses = () => {
   // Funkcja do dodawania nowego adresu
   const addNewAddress = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/public/customers/address/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ address: newAddress }),
+      const response = await instance.post('/customers/address/add', {
+        type: 1,
+        zipCode: newZipCode,
+        address: newAddress,
+        customer: AuthService.getCurrentUser().id,
+        country: newCountry,
+        city: newCity,
       });
 
-      // Sprawdź, czy dodawanie adresu zakończyło się sukcesem
-      if (response.ok) {
-        console.log('Address added successfully!');
-        // Opcjonalnie: Zaktualizuj listę adresów po udanym dodaniu
-        fetchAddressesList();
-        // Opcjonalnie: Zresetuj stan nowego adresu po udanym dodaniu
-        setNewAddress('');
-      } else {
-        console.error('Error adding new address');
-      }
+    fetchAddressesList();  
     } catch (error) {
       console.error('Error adding new address:', error);
     }
@@ -61,12 +61,8 @@ const Addresses = () => {
   // Funkcja do edycji istniejącego adresu
   const editAddress = async (addressId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/customers/address/${addressId}/edit`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ address: newAddress }),
+      const response = await instance.patch(`/customers/address/${addressId}/edit`, {
+        
       });
 
       // Sprawdź, czy edycja adresu zakończyła się sukcesem
@@ -87,23 +83,20 @@ const Addresses = () => {
   // Funkcja do usuwania adresu
   const deleteAddress = async (addressId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/customers/address/${addressId}/delete`, {
-        method: 'DELETE',
-      });
+      const response = await instance.delete(`/customers/address/${addressId}/delete`);
 
       // Sprawdź, czy usuwanie adresu zakończyło się sukcesem
-      if (response.ok) {
-        console.log('Address deleted successfully!');
-        // Opcjonalnie: Zaktualizuj listę adresów po udanym usunięciu
-        fetchAddressesList();
-      } else {
+      if(response.status != 200){
         console.error('Error deleting address');
+        return;
       }
+
+      fetchAddressesList();
     } catch (error) {
       console.error('Error deleting address:', error);
     }
-  };
 
+  };
   // Efekt pobierający listę adresów po zamontowaniu komponentu
   useEffect(() => {
     fetchAddressesList();
@@ -111,39 +104,45 @@ const Addresses = () => {
 
   // Renderowanie komponentu
   return (
-    <div>
-      {/* Wyświetlenie listy adresów */}
-      <h2>Addresses List</h2>
+    <div className="address-list">
+      <h2>Lista twoich adresów</h2>
       <ul>
-        {addressesList.map((address) => (
-          <li key={address.id}>
-            {`${address.address} ${address.country}`} {address.city}  -{' '}
-            <button onClick={() => fetchAddressDetails(address.id)}>Details</button>
-            <button onClick={() => deleteAddress(address.id)}>Delete</button>
-          </li>
-        ))}
+      {addressesList.map((address) => (
+  <li key={address.id}>
+    {`${address.address} ${address.city} ${address.zipCode} ${address.country} `} {' '}
+    <button onClick={() => deleteAddress(address.id)}>Usuń</button>
+  </li>
+))}
       </ul>
 
-      {/* Wyświetlenie szczegółów wybranego adresu */}
-      {selectedAddress && (
-        <div>
-          <h2>Address Details</h2>
-          <p>ID: {selectedAddress.id}</p>
-          {/* Dodaj pozostałe informacje zgodnie z odpowiedzią z API */}
-        </div>
-      )}
-
       {/* Formularz do dodawania/edycji adresu */}
-      <div>
-        <h2>Add Address</h2>
-        <input
-          type="text"
-          placeholder="New Address"
-          value={newAddress}
-          onChange={(e) => setNewAddress(e.target.value)}
-        />
-        <button onClick={addNewAddress}>Add Address</button>
-        {/* <button onClick={() => editAddress(selectedAddress.id)}>Edit Address</button> */}
+      <div className="address-form">
+      <h2>Dodaj adres</h2>
+      <input
+        type="text"
+        placeholder="Ulica"
+        value={newAddress}
+        onChange={(e) => setNewAddress(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Kod pocztowy"
+        value={newZipCode}
+        onChange={(e) => setNewZipCode(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Kraj"
+        value={newCountry}
+        onChange={(e) => setNewCountry(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Miasto"
+        value={newCity}
+        onChange={(e) => setNewCity(e.target.value)}
+      />
+      <button onClick={addNewAddress}>Dodaj adres</button>
       </div>
     </div>
   );

@@ -4,9 +4,24 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    background-image: linear-gradient(to bottom right, white , navy);
+    background-color: white;
     height: 10vh;
 
+}
+
+.header button {   
+    background-color: #ffb766;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.header button:hover {
+    background-color: #f43a09;
+    transition: all 0.3s ease-in-out;
 }
 
 .header-left, .header-center {
@@ -39,7 +54,7 @@
 
 .header-center a {
     text-decoration: none; 
-    color: #333; 
+    color: #ffb766; 
     padding: 5px 10px; 
     position: relative;
 }
@@ -62,7 +77,7 @@
 }
 
 .header-center a:hover {
-    color: white;
+    color: grey;
 }
 
 
@@ -111,7 +126,50 @@ a::before {
 a:hover::before {
     width: 100%;
     left: 0;
-    background-color: white; 
+    background-color: #f43a09; 
 }
-
+.ebok{
+    color: black;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ustaw wysoki indeks z-index, aby overlay był na wierzchu innych elementów */
+  }
+  
+  .buttons-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  .buttons-container a,
+  .buttons-container button {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .logout-tab{
+    color: grey;
+  }
+  .arrow{
+    margin: 2px;
+  }
+  .header-span{
+    font-size: small;
+    font-weight: bold;
+    color: #333333;
+    margin: 2px;
+  }
+.login-button{
+    color: #f43a09;
+}
 

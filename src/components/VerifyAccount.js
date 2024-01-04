@@ -33,7 +33,6 @@ function VerifyAccount() {
   
       // Wywołaj funkcję weryfikującą konto z odczytanymi parametrami
       const response = await verifyEmail({
-        emailToken: confirmLink, // Przekazujemy cały link jako token weryfikacyjny
         email: email, // Przekazujemy email użytkownika\
         query: query
       });

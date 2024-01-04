@@ -25,15 +25,20 @@ const Payments = () => {
   // Renderowanie komponentu
   return (
     <div>
-      {/* Wyświetlenie listy płatności */}
-      <h2>Payments List</h2>
-      <ul>
-        {paymentsList.map((payment) => (
-          <li key={payment.id}>
-            {payment.amount} - {payment.description}
-          </li>
-        ))}
-      </ul>
+{/* Wyświetlenie listy płatności */}
+<h2>Payments List</h2>
+<ul>
+  {Array.isArray(paymentsList) && paymentsList.length > 0 ? (
+    paymentsList.map((payment) => (
+      <li key={payment.id}>
+        {payment.amount} - {payment.description}
+      </li>
+    ))
+  ) : (
+    <p>No payments available.</p>
+  )}
+</ul>
+
     </div>
   );
 };
