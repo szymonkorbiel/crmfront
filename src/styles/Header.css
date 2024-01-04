@@ -17,7 +17,9 @@
 .header-left p{
     margin: 2vh;
 }
-
+.header-left img {
+    width: 40%; 
+  }
 .header-center {
     text-align: center;
     justify-content: center;
