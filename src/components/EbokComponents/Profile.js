@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
+import instance from '../../externals/instance';
+import AuthService from '../../externals/auth';
+import { Navigate, useNavigate } from 'react-router-dom';
 // Komponent Profile
 const Profile = () => {
   // Stan dla szczegółów profilu
@@ -8,12 +10,13 @@ const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   // Stan dla nowego hasła
   const [newPassword, setNewPassword] = useState('');
-
+  const [oldPassword, setOldPassword] = useState('');
+  const navigate = useNavigate();
   // Funkcja pobierająca szczegóły profilu
   const fetchProfileDetails = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/public/profile/detail');
-      const data = await response.json();
+      const response = await instance.get('/profile/detail');
+      const data = response.data.profile;
       setProfileDetails(data);
     } catch (error) {
       console.error('Error fetching profile details:', error);
@@ -23,18 +26,16 @@ const Profile = () => {
   // Funkcja do zmiany hasła
   const handleChangePassword = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/public/profile/password/change', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ newPassword }),
+      const response = await instance.post('/profile/password/change', {
+        newPassword:newPassword,
+        oldPassword:oldPassword
       });
 
       // Sprawdź, czy zmiana hasła zakończyła się sukcesem
-      if (response.ok) {
+      if (response.status==200) {
         console.log('Password changed successfully!');
-        // Opcjonalnie: Zresetuj stan nowego hasła po udanej zmianie
+        AuthService.logout();
+        navigate('/loginform');
         setNewPassword('');
       } else {
         console.error('Error changing password');
@@ -91,6 +92,12 @@ const Profile = () => {
       {/* Zmiana hasła */}
       <div>
         <h2>Change Password</h2>
+        <input
+          type="password"
+          placeholder="Old Password"
+          value={oldPassword}
+          onChange={(e) => setOldPassword(e.target.value)}
+        />
         <input
           type="password"
           placeholder="New Password"

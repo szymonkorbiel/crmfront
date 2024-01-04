@@ -1,18 +1,26 @@
-// Importy
 import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
 import AuthService from '../../externals/auth';
+
 // Komponent Settings
 const Settings = () => {
   // Stan dla szczegółów ustawień
   const [settingsDetails, setSettingsDetails] = useState(null);
 
+  // Stan dla formularza aktualizacji ustawień
+  const [updatedSettings, setUpdatedSettings] = useState({
+    emailNotification: false,
+    smsNotification: false,
+    twoFactor: false,
+  });
+
   // Funkcja pobierająca szczegóły ustawień
   const fetchSettingsDetails = async (customerId) => {
     try {
-      const response = await instance.get(`http://localhost:8000/api/public/customers/settings/${customerId}/detail`);
-      const data = await response.json();
-      setSettingsDetails(data.settings);  // Ustawienie tylko danych z sekcji "settings"
+      const response = await instance.get(`/customers/settings/${customerId}/detail`);
+      const data = await response.data.settings;
+      setSettingsDetails(data);  // Ustawienie tylko danych z sekcji "settings"
+      setUpdatedSettings(data);  // Ustawienie formularza aktualizacji na obecne ustawienia
     } catch (error) {
       console.error('Error fetching settings details:', error);
     }
@@ -21,14 +29,10 @@ const Settings = () => {
   // Funkcja aktualizująca ustawienia (PUT)
   const updateSettings = async (customerId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/customers/settings/${customerId}/edit`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          // Dodaj dodatkowe nagłówki, jeśli są wymagane
-        },
-        // Dodaj dane, jeśli są wymagane do aktualizacji
-        body: JSON.stringify(settingsDetails),  // Użycie aktualnych danych ustawień
+      const response = await instance.put(`/customers/settings/${customerId}/edit`, {
+        emailNotification: updatedSettings.emailNotification,
+        smsNotification: updatedSettings.smsNotification,
+        "2fa": updatedSettings.twoFactor,
       });
 
       // Sprawdź, czy aktualizacja zakończyła się sukcesem
@@ -43,30 +47,61 @@ const Settings = () => {
     }
   };
 
+  // Obsługa zmian w formularzu aktualizacji
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setUpdatedSettings((prevSettings) => ({
+      ...prevSettings,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
   // Efekt pobierający szczegóły ustawień po zamontowaniu komponentu
   useEffect(() => {
     // Przykładowe ID klienta (może być pobrane od użytkownika)
-    const customerId = "018c68d6-4e01-7edb-a124-f74afe28a937";
-    fetchSettingsDetails(customerId);
+    
+    fetchSettingsDetails(AuthService.getCurrentUser().id);
   }, []);
 
   // Renderowanie komponentu
   return (
     <div>
-      {/* Wyświetlenie szczegółów ustawień */}
-      <h2>Settings Details</h2>
-      {settingsDetails && (
-        <div>
-          <p>ID: {settingsDetails.id}</p>
-          <p>Email Notification: {settingsDetails.emailNotification.toString()}</p>
-          <p>SMS Notification: {settingsDetails.smsNotification.toString()}</p>
-          <p>Two-Factor: {settingsDetails.twoFactor.toString()}</p>
-        </div>
-      )}
 
-      {/* Przykład aktualizacji ustawień */}
+      {/* Formularz aktualizacji ustawień */}
       {settingsDetails && (
-        <button onClick={() => updateSettings(settingsDetails.id)}>Update Settings</button>
+        <form onSubmit={(e) => { e.preventDefault(); updateSettings(AuthService.getCurrentUser().id); }}>
+          <label>
+            Email Notification:
+            <input
+              type="checkbox"
+              name="emailNotification"
+              checked={updatedSettings.emailNotification}
+              onChange={handleInputChange}
+            />
+          </label>
+
+          <label>
+            SMS Notification:
+            <input
+              type="checkbox"
+              name="smsNotification"
+              checked={updatedSettings.smsNotification}
+              onChange={handleInputChange}
+            />
+          </label>
+
+          <label>
+            Two-Factor Authentication:
+            <input
+              type="checkbox"
+              name="twoFactor"
+              checked={updatedSettings.twoFactor}
+              onChange={handleInputChange}
+            />
+          </label>
+
+          <button type="submit">Update Settings</button>
+        </form>
       )}
     </div>
   );

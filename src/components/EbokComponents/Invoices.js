@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import instance from '../../externals/instance';
+import PdfUtils from '../../externals/pdfUtil';
 
 const Invoices = () => {
   const [invoices, setInvoices] = useState([]);
@@ -9,8 +11,8 @@ const Invoices = () => {
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/public/bill/list');
-        setInvoices(response.data);
+        const response = await instance.get('/bill/list');
+        setInvoices(response.data.results.bills);
       } catch (error) {
         console.error('Error fetching invoices:', error);
       }
@@ -21,7 +23,7 @@ const Invoices = () => {
 
   const handleInvoiceClick = async (invoiceId) => {
     try {
-      const response = await axios.get(`http://localhost:8000/api/public/bill/${invoiceId}/detail`);
+      const response = await axios.get(`/bill/${invoiceId}/detail`);
       setInvoiceDetails(response.data);
     } catch (error) {
       console.error('Error fetching invoice details:', error);
@@ -34,7 +36,9 @@ const Invoices = () => {
       <ul>
         {invoices.map((invoice) => (
           <li key={invoice.id} onClick={() => handleInvoiceClick(invoice.id)}>
-            {invoice.invoiceNumber}
+            {invoice.number}
+            <a onClick={() => PdfUtils.downloadPDF(invoice.fileName, 'download')}>download invoice</a>
+            <a onClick={() => PdfUtils.downloadPDF(invoice.fileName, 'open')}>open invoice</a>
           </li>
         ))}
       </ul>

@@ -22,7 +22,7 @@ const Addresses = () => {
   // Funkcja pobierająca listę adresów
   const fetchAddressesList = async () => {
     try {
-      const response = await instance.get('http://localhost:8000/api/public/customers/address/list');
+      const response = await instance.get('/customers/address/list');
       setAddressesList(response.data.addresses);
     } catch (error) {
       console.error('Error fetching addresses list:', error);
