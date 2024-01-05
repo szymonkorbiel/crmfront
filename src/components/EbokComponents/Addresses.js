@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
 import AuthService from '../../externals/auth';
 import '../../styles/EbokStyles/Addresses.css';
-import circleIcon from '../../assets/graphics/circle.png';
 // Komponent Addresses
 const Addresses = () => {
   // Stan dla listy adresów

@@ -1,7 +1,7 @@
 // App.js
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-
+import { Helmet } from 'react-helmet';
 import ScrollToTop from './components/ScrollToTop';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,6 +11,7 @@ import LogoutConfirmation from './components/LogoutConfirmation';
 import BackToTopButton from './components/BackToTopButton';
 import VerifyAccount from './components/VerifyAccount';
 import EbokHome from './components/EbokHome';
+import CookieInfo from './components/CookieInfo';
 import MainContent from './views/MainContent';
 import About from './views/About';
 import Contact from './views/Contact';
@@ -31,9 +32,12 @@ import ServiceVisits from './components/EbokComponents/ServiceVisits';
 
 function App() {
   const [user, setUser] = useState(null);
-
+  document.title = 'CRMConnect';
   return (
     <BrowserRouter>
+      <Helmet>
+        <link rel="icon" type="image/png" href="./assets/graphics/favicon.png" />
+      </Helmet>
       <Header />
       <Routes>
         <Route path="/" element={<MainContent />} />
@@ -62,6 +66,8 @@ function App() {
       <Footer />
       <BackToTopButton />
       <ScrollToTop />
+      <CookieInfo />
+      
     </BrowserRouter>
   );
 }

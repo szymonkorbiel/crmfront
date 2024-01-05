@@ -1,61 +1,99 @@
-.bg-div {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    min-height: 80vh;
-    position: relative;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Hind', sans-serif;
+  background: #fff;
+  color: #4d5974;
 }
 
-.transparent-div {
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 10px;
-    width: 90%;
-    max-width: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.contact-h3 {
-    margin: 0;
+.containerfaq {
+  margin: 0 auto;
+  padding: 4rem;
 }
 
-.contact-p {
-    margin: 0;
+.accordion .accordion-item {
+  border-bottom: 1px solid #e5e5e5;
 }
 
-.transparent-div .faq-section {
-    cursor: pointer;
-    margin-bottom: 10px;
-    transition: margin 0.3s ease;
-    background-color: #ffffff;
-    padding: 10px;
-    overflow: hidden;
-  }
-  
-  .transparent-div .faq-section:hover {
-    background-color: #c2edda;
-  }
-  
-  .transparent-div .faq-section h3 {
-    margin: 0;
-  }
-  
-  .transparent-div .faq-section p {
-    margin-top: 5px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-  
-  .transparent-div .faq-section.expanded p {
-    max-height: 1000px; /* Ustaw odpowiednią maksymalną wysokość */
-  }
-  
-
-@media screen and (max-height: 800px) {
-    .transparent-div {
-        position: static;
-        transform: none;
-    }
+.accordion button {
+  position: relative;
+  display: block;
+  text-align: left;
+  width: 100%;
+  padding: 1em 0;
+  color: #7288a2;
+  font-size: 1.15rem;
+  font-weight: 400;
+  border: none;
+  background: none;
+  outline: none;
 }
+.accordion-title {
+  font-weight: bold;
+  font-size: 25px;
+}
+.accordion button:hover,
+.accordion button:focus {
+  cursor: pointer;
+  color: #68d388;
+}
+
+.accordion button[aria-expanded='true'] {
+  color: #68d388;
+}
+
+.accordion button .icon {
+  display: inline-block;
+  position: absolute;
+  top: 18px;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  border: 1px solid;
+  border-radius: 22px;
+}
+
+.accordion button .icon::before {
+  display: block;
+  position: absolute;
+  content: '';
+  top: 9px;
+  left: 5px;
+  width: 10px;
+  height: 2px;
+  background: currentColor;
+}
+
+.accordion button .icon::after {
+  display: block;
+  position: absolute;
+  content: '';
+  top: 5px;
+  left: 9px;
+  width: 2px;
+  height: 10px;
+  background: currentColor;
+}
+
+.accordion button[aria-expanded='true'] .icon::after {
+  width: 0;
+}
+
+.accordion .accordion-content {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 200ms linear, max-height 200ms linear;
+  will-change: opacity, max-height;
+  padding: 10px;
+}
+
+.accordion button[aria-expanded='true'] + .accordion-content {
+  opacity: 1;
+  max-height: 1000px;
+}
+
+.h2faq {
+  text-align: center;
+}
+

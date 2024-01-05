@@ -12,7 +12,7 @@ import Offers from './EbokComponents/Offers';
 import Payments from './EbokComponents/Payments';
 import ServiceRequests from './EbokComponents/ServiceRequests';
 import ServiceVisits from './EbokComponents/ServiceVisits';
-
+import { IoMan, FaFileInvoice, FaFileContract, FaAddressBook, IoMdSettings, FaEnvelope, MdRouter, MdLocalOffer, FaDollarSign, MdOutlineMiscellaneousServices, RiCustomerService2Fill } from "../assets/graphics/icons/iconImports";
 const TabLink = ({ to, label, selectedTab, onClick }) => {
   const isActive = selectedTab === label;
   return (
@@ -34,17 +34,18 @@ const EbokHome = () => {
   return (
     <div className="home-container">
       <div className="left-aaa">
-        <TabLink to="/ebokhome/profile" label="Profile" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/invoices" label="Invoices" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/contracts" label="Contracts" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/addresses" label="Addresses" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/settings" label="Settings" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/messages" label="Messages" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/models" label="Models" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/offers" label="Offers" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/payments" label="Payments" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/service-requests" label="Service Requests" selectedTab={selectedTab} onClick={handleTabClick} />
-        <TabLink to="/ebokhome/service-visits" label="Service Visits" selectedTab={selectedTab} onClick={handleTabClick} />
+      <TabLink to="/ebokhome/profile" label={<><IoMan /> Profile</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/invoices" label={<><FaFileInvoice /> Invoices</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/contracts" label={<><FaFileContract /> Contracts</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/addresses" label={<><FaAddressBook /> Addresses</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/settings" label={<><IoMdSettings /> Settings</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/messages" label={<><FaEnvelope /> Messages</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/models" label={<><MdRouter /> Models</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/offers" label={<><MdLocalOffer /> Offers</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/payments" label={<><FaDollarSign /> Payments</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/service-requests" label={<><RiCustomerService2Fill /> Service Requests</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/service-visits" label={<><MdOutlineMiscellaneousServices /> Service Visits</>} selectedTab={selectedTab} onClick={handleTabClick} />
+
       </div>
       <div className="right-aa">
         {/* Zawartość dla prawej kolumny */}

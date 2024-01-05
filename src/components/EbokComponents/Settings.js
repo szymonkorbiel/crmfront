@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
 import AuthService from '../../externals/auth';
-
+import { Navigate, useNavigate } from 'react-router-dom';
 // Komponent Settings
 const Settings = () => {
   // Stan dla szczegółów ustawień
   const [settingsDetails, setSettingsDetails] = useState(null);
-
+  const [newPassword, setNewPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const navigate = useNavigate();
   // Stan dla formularza aktualizacji ustawień
   const [updatedSettings, setUpdatedSettings] = useState({
     emailNotification: false,
@@ -46,6 +48,28 @@ const Settings = () => {
       console.error('Error updating settings:', error);
     }
   };
+
+    // Funkcja do zmiany hasła
+    const handleChangePassword = async () => {
+      try {
+        const response = await instance.post('/profile/password/change', {
+          newPassword:newPassword,
+          oldPassword:oldPassword
+        });
+  
+        // Sprawdź, czy zmiana hasła zakończyła się sukcesem
+        if (response.status==200) {
+          console.log('Password changed successfully!');
+          AuthService.logout();
+          navigate('/loginform');
+          setNewPassword('');
+        } else {
+          console.error('Error changing password');
+        }
+      } catch (error) {
+        console.error('Error changing password:', error);
+      }
+    };
 
   // Obsługa zmian w formularzu aktualizacji
   const handleInputChange = (event) => {
@@ -103,6 +127,32 @@ const Settings = () => {
           <button type="submit">Update Settings</button>
         </form>
       )}
+
+      {/* Zmiana hasła */}
+      <div className="password-form">
+  <h2>Change Password</h2>
+  <form>
+    <label htmlFor="oldPassword">Old Password:</label>
+    <input
+      type="password"
+      id="oldPassword"
+      placeholder="Enter your old password"
+      value={oldPassword}
+      onChange={(e) => setOldPassword(e.target.value)}
+    />
+
+    <label htmlFor="newPassword">New Password:</label>
+    <input
+      type="password"
+      id="newPassword"
+      placeholder="Enter your new password"
+      value={newPassword}
+      onChange={(e) => setNewPassword(e.target.value)}
+    />
+
+    <button onClick={handleChangePassword}>Change Password</button>
+  </form>
+</div>
     </div>
   );
 };

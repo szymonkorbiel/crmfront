@@ -1,5 +1,5 @@
 .mainContent {
-    background-image: url('../assets/graphics/bg.jpg'); 
+    background-image: url('../assets/graphics/bg2.jpg'); 
     background-size: cover;
     background-repeat: no-repeat; 
     background-position: center; 
@@ -21,11 +21,3 @@
          dostosowania dla ekranów o szerokości do 600px 
     }
 } */  
-a {
-    font-weight: bold;
-    text-decoration: none;
-    color: #f7f7f7;
-}
-a:hover{
-    color: grey;
-}

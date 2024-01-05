@@ -49,16 +49,23 @@
 }
 
 .header-center li {
+    display: flex;
+    align-items: center;
     margin: 0 15px;
 }
 
 .header-center a {
-    text-decoration: none; 
-    color: #ffb766; 
-    padding: 5px 10px; 
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffb766;
+    padding: 5px 10px;
     position: relative;
 }
 
+.header-center svg {
+    margin-right: 5px; /* Dodaj odstęp między ikonką a tekstem */
+  }
 
 .header-center a::before {
     content: "";
@@ -86,6 +93,7 @@
     flex: 1;
     align-items: center;
     justify-content: flex-end;
+    position: relative;
 }
 
 .header-right p {
@@ -93,9 +101,7 @@
 }
 
 .logo {
-    width: 100px; 
-    height: auto;
-    margin-left: 20px; 
+    margin-left: 10px;
 }
 
 a {
@@ -132,22 +138,18 @@ a:hover::before {
     color: black;
 }
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 100%; /* Ustaw top na 100%, aby overlay wyświetlał się poniżej przycisku */
+    right: 1px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Ustaw wysoki indeks z-index, aby overlay był na wierzchu innych elementów */
+    align-items: right;
+    z-index: 1000;
   }
   
   .buttons-container {
     background: #fff;
     padding: 20px;
-    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
   }
@@ -160,9 +162,28 @@ a:hover::before {
   .logout-tab{
     color: grey;
   }
-  .arrow{
-    margin: 2px;
+  .arrow-container {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
   }
+  
+  .arrow-container:hover {
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .arrow-icon {
+    width: 30px;
+    height: 30px;
+    fill: #ffb766;
+    transition: fill 0.3s ease-in-out;
+  }
+  
+  .arrow-container:hover .arrow-icon {
+    fill: #f43a09;
+  }
+
   .header-span{
     font-size: small;
     font-weight: bold;
@@ -171,5 +192,8 @@ a:hover::before {
   }
 .login-button{
     color: #f43a09;
+}
+.nostyle {
+    all: unset;
 }
 

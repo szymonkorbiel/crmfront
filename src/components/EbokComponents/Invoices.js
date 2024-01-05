@@ -32,13 +32,13 @@ const Invoices = () => {
 
   return (
     <div>
-      <h2>Invoices</h2>
+      <h2>List of your invoices</h2>
       <ul>
         {invoices.map((invoice) => (
-          <li key={invoice.id} onClick={() => handleInvoiceClick(invoice.id)}>
+          <li className="invoice" key={invoice.id} onClick={() => handleInvoiceClick(invoice.id)}>
             {invoice.number}
-            <a onClick={() => PdfUtils.downloadPDF(invoice.fileName, 'download')}>download invoice</a>
-            <a onClick={() => PdfUtils.downloadPDF(invoice.fileName, 'open')}>open invoice</a>
+            <a className="invoiced" onClick={() => PdfUtils.downloadPDF(invoice.fileName, 'download')}>download invoice</a>
+            <a className="invoiceo" onClick={() => PdfUtils.downloadPDF(invoice.fileName, 'open')}>open invoice</a>
           </li>
         ))}
       </ul>
@@ -50,7 +50,10 @@ const Invoices = () => {
           {/* Dodaj więcej informacji o fakturze w zależności od danych, jakie zwraca endpoint */}
         </div>
       )}
+      
     </div>
+
+    
   );
 };
 

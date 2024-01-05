@@ -14,10 +14,9 @@ function MainContent() {
       </Helmet>
     </div>
             <h1>Najlepszy internet w mieście!</h1>
-            <p>Zapoznaj się z naszą ofertą klikając&nbsp;
+            <p><br></br>Zapoznaj się z naszą ofertą klikając&nbsp;
                 <Link to="/oferty">TUTAJ</Link>
             </p>
-            <p>tlo do zmiany 4k uhd</p>
         </div>
     );
 }

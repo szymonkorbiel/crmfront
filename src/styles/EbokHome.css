@@ -7,7 +7,17 @@
 .left-aaa {
   width: 15% !important;
   padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+}
 
+.left-aaa > * {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 5px;
 }
 
 .right-aa {
@@ -16,12 +26,9 @@
   border: 1px dashed black;
 }
 
-
-/* W pliku EbokHome.css */
-
 .tab-container {
   display: flex;
-  flex-direction: column; /* Ustawia układ wertykalny (jedno pod drugim) */
+  flex-direction: column; 
 }
 
 .eboktab {
@@ -55,13 +62,5 @@
   transition: color 0.3s ease;
 }
 
-.eboktab-link:hover {
-  color: #1c2440;
-}
-
-.eboktab-link.active {
-  font-weight: bold;
-  color: #ffffff;
-}
 
 
