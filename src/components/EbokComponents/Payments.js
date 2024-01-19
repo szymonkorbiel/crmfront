@@ -22,15 +22,15 @@ const Payments = () => {
   const getPaymentMethod = (paidBy) => {
     switch (paidBy) {
       case 0:
-        return 'Card';
+        return 'Kartą';
       case 1:
         return 'BLIK';
       case 2:
-        return 'Online Payment';
+        return 'Płatność Online';
       case 3:
-        return 'Cash';
+        return 'Gotówka';
       default:
-        return 'Unknown';
+        return 'Nieznany';
     }
   };
 
@@ -38,29 +38,54 @@ const Payments = () => {
   const getPaymentStatus = (status) => {
     switch (status) {
       case 0:
-        return 'Pending';
+        return 'W trakcie';
       case 1:
-        return 'Posted';
+        return 'Opłacone';
       default:
-        return 'Unknown';
+        return 'Nieznane';
     }
   };
 
   return (
-    <div>
-      <h2 className='ebokh2'>Payments List</h2>
-      <ul className='ebokul'>
-        {Array.isArray(paymentsList) && paymentsList.length > 0 ? (
-          paymentsList.map((payment) => (
-            <li className='ebokli' key={payment.id}>
-              {payment.amount} PLN - {payment.bill.number} - Paid by: {getPaymentMethod(payment.paidBy)} - Status: {getPaymentStatus(payment.status)}
-            </li>
-          ))
-        ) : (
-          <p className='ebokp'>No payments available.</p>
-        )}
-      </ul>
-    </div>
+<div>
+  <h1 className='ebokh1'>Lista płatności</h1>
+  <ul className='ebokul'>
+    {Array.isArray(paymentsList) && paymentsList.length > 0 ? (
+      <>
+        <li className='ebokli' key="header">
+          <table>
+            <thead>
+              <tr>
+                <th className='ebokth' style={{ width: '10%' }}></th>
+                <th className='ebokth' style={{ width: '20%' }}>Kwota</th>
+                <th className='ebokth' style={{ width: '30%' }}>Numer faktury</th>
+                <th className='ebokth' style={{ width: '20%' }}>Płatność przez</th>
+                <th className='ebokth' style={{ width: '20%' }}>Status</th>
+              </tr>
+            </thead>
+          </table>
+        </li>
+        {paymentsList.map((payment, index) => (
+          <li className='ebokli' key={payment.id}>
+            <table>
+              <tr>
+                <td style={{ width: '10%' }}>{index + 1}</td>
+                <td style={{ width: '20%' }}>{payment.amount} zł</td>
+                <td style={{ width: '30%', color:"gray" }}>{payment.bill.number}</td>
+                <td style={{ width: '20%' }}>{getPaymentMethod(payment.paidBy)}</td>
+                <td style={{ width: '20%' }}>{getPaymentStatus(payment.status)}</td>
+              </tr>
+            </table>
+          </li>
+        ))}
+      </>
+    ) : (
+      <p className='ebokp'>No payments available.</p>
+    )}
+  </ul>
+</div>
+
+  
   );
 };
 

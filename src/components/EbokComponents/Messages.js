@@ -38,9 +38,9 @@ const Messages = () => {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div>
       <h1 className='ebokh1'>Wiadomości</h1>
-      <div>
+    <div style={{ display: 'flex' }}>
 <ul className='ebokul'>
   {Array.isArray(messagesList) && messagesList.length > 0 ? (
     <li className='ebokli' key="header">

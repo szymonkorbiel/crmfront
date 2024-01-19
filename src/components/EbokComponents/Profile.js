@@ -88,13 +88,13 @@ const Profile = () => {
           <div className="profile-section">
             <h3 className='ebokh3'>Szczegóły weryfikacji</h3>
             <div className="eboklabel">Czy konto jest zweryfikowane:</div>
-            <div className="ebokvalue">{profileDetails.isVerified ? 'Yes' : 'No'}</div>
+            <div className="ebokvalue">{profileDetails.isVerified ? 'Tak' : 'Nie'}</div>
 
             <div className="eboklabel">Podwójna autentykacja:</div>
-            <div className="ebokvalue">{profileDetails.twoFactorAuth ? 'Yes' : 'No'}</div>
+            <div className="ebokvalue">{profileDetails.twoFactorAuth ? 'Tak' : 'Nie'}</div>
 
             <div className="eboklabel">Czy konto jest aktywowane:</div>
-            <div className="ebokvalue">{profileDetails.isActive ? 'Yes' : 'No'}</div>
+            <div className="ebokvalue">{profileDetails.isActive ? 'Tak' : 'Nie'}</div>
           </div>
 
           {/* Company Details */}
