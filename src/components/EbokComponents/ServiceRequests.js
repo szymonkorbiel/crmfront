@@ -1,48 +1,40 @@
-// Importy
 import React, { useState, useEffect } from 'react';
-
-// Komponent ServiceRequests
+import instance from '../../externals/instance';
+import AuthService from '../../externals/auth';
+import '../../styles/EbokHome.css';
 const ServiceRequests = () => {
-  // Stan dla listy żądań serwisowych
   const [serviceRequestsList, setServiceRequestsList] = useState([]);
-  // Stan dla szczegółów wybranego żądania serwisowego
   const [selectedServiceRequest, setSelectedServiceRequest] = useState(null);
-  // Stan dla nowego żądania serwisowego
   const [newServiceRequest, setNewServiceRequest] = useState('');
+  const [contractsList, setContractsList] = useState([]);
+  const [selectedContract, setSelectedContract] = useState('');
 
-  // Funkcja pobierająca listę żądań serwisowych
   const fetchServiceRequestsList = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/public/service-requests/list');
-      const data = await response.json();
-      setServiceRequestsList(data);
+      const response = await instance.get('/service-requests/list');
+      setServiceRequestsList(response.data.results.serviceRequests);
     } catch (error) {
       console.error('Error fetching service requests list:', error);
     }
   };
 
-  // Funkcja pobierająca szczegóły żądania serwisowego
   const fetchServiceRequestDetails = async (requestId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/service-requests/${requestId}/detail`);
-      const data = await response.json();
-      setSelectedServiceRequest(data);
+      const response = await instance.get(`service-requests/${requestId}/detail`);
+      setSelectedServiceRequest(response.data.serviceRequest);
     } catch (error) {
       console.error('Error fetching service request details:', error);
     }
   };
 
-  // Funkcja do anulowania żądania serwisowego
   const cancelServiceRequest = async (requestId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/service-requests/${requestId}/cancel`, {
+      const response = await instance.delete(`service-requests/${requestId}/cancel`, {
         method: 'DELETE',
       });
 
-      // Sprawdź, czy anulowanie żądania zakończyło się sukcesem
       if (response.ok) {
         console.log('Service request canceled successfully!');
-        // Opcjonalnie: Zaktualizuj listę żądań po udanym anulowaniu
         fetchServiceRequestsList();
       } else {
         console.error('Error canceling service request');
@@ -52,23 +44,17 @@ const ServiceRequests = () => {
     }
   };
 
-  // Funkcja do tworzenia nowego żądania serwisowego
   const createServiceRequest = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/public/service-requests/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ description: newServiceRequest }),
+      const response = await instance.post('/service-requests/create', {
+          description: newServiceRequest,
+          customer: AuthService.getCurrentUser().id,
+          contract: selectedContract,
       });
 
-      // Sprawdź, czy utworzenie żądania zakończyło się sukcesem
       if (response.ok) {
         console.log('Service request created successfully!');
-        // Opcjonalnie: Zaktualizuj listę żądań po udanym utworzeniu
         fetchServiceRequestsList();
-        // Opcjonalnie: Zresetuj stan nowego żądania po udanym utworzeniu
         setNewServiceRequest('');
       } else {
         console.error('Error creating service request');
@@ -78,49 +64,68 @@ const ServiceRequests = () => {
     }
   };
 
-  // Efekt pobierający listę żądań serwisowych po zamontowaniu komponentu
+  const fetchContractsList = async () => {
+    try {
+      const response = await instance.get('/contracts/list');
+      setContractsList(response.data.results);
+      // Domyślnie ustaw pierwszy kontrakt jako wybrany
+      if (response.data.results.length > 0) {
+        setSelectedContract(response.data.results[0].id);
+      }
+    } catch (error) {
+      console.error('Error fetching contracts list:', error);
+    }
+  };
+
   useEffect(() => {
     fetchServiceRequestsList();
+    fetchContractsList();
   }, []);
 
-  // Renderowanie komponentu
   return (
     <div>
-{/* Wyświetlenie listy żądań serwisowych */}
-<h2>Service Requests List</h2>
-<ul>
-  {Array.isArray(serviceRequestsList) && serviceRequestsList.length > 0 ? (
-    serviceRequestsList.map((request) => (
-      <li key={request.id}>
-        {request.date} - {request.description} -{' '}
-        <button onClick={() => fetchServiceRequestDetails(request.id)}>Details</button>
-        <button onClick={() => cancelServiceRequest(request.id)}>Cancel</button>
-      </li>
-    ))
-  ) : (
-    <p>No service requests available.</p>
-  )}
-</ul>
+      <h2 className='ebokh2'>Service Requests List</h2>
+      <ul>
+        {Array.isArray(serviceRequestsList) && serviceRequestsList.length > 0 ? (
+          serviceRequestsList.map((request) => (
+            <li className='ebokli' key={request.id}>
+              {request.date} - {request.description} -{' '}
+              <button className='ebokbutton' onClick={() => fetchServiceRequestDetails(request.id)}>Details</button>
+              <button className='ebokbutton' onClick={() => cancelServiceRequest(request.id)}>Cancel</button>
+            </li>
+          ))
+        ) : (
+          <p className='ebokp'>No service requests available.</p>
+        )}
+      </ul>
 
-      {/* Wyświetlenie szczegółów wybranego żądania serwisowego */}
       {selectedServiceRequest && (
         <div>
-          <h2>Service Request Details</h2>
-          <p>ID: {selectedServiceRequest.id}</p>
-          {/* Dodaj pozostałe informacje zgodnie z odpowiedzią z API */}
+          <h2 className='ebokh2'>Service Request Details</h2>
+          <p className='ebokp'>ID: {selectedServiceRequest.id}</p>
         </div>
       )}
 
-      {/* Formularz do tworzenia nowego żądania serwisowego */}
       <div>
-        <h2>Create Service Request</h2>
+        <h2 className='ebokh2'>Create Service Request</h2>
         <input
+          className='ebokinputext'
           type="text"
           placeholder="New Service Request"
           value={newServiceRequest}
           onChange={(e) => setNewServiceRequest(e.target.value)}
         />
-        <button onClick={createServiceRequest}>Create Service Request</button>
+
+        {/* Wybór kontraktu */}
+        <select className='ebokselect' value={selectedContract} onChange={(e) => setSelectedContract(e.target.value)}>
+          {contractsList.map((contract) => (
+            <option className='ebokoption' key={contract.id} value={contract.id}>
+              {contract.contractNumber}
+            </option>
+          ))}
+        </select>
+
+        <button className='ebokbutton' onClick={createServiceRequest}>Create Service Request</button>
       </div>
     </div>
   );

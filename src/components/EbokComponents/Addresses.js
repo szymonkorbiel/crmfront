@@ -1,15 +1,12 @@
-// Importy
 import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
 import AuthService from '../../externals/auth';
-import '../../styles/EbokStyles/Addresses.css';
-// Komponent Addresses
-const Addresses = () => {
-  // Stan dla listy adresów
+import '../../styles/EbokHome.css';
+
+function Addresses() {
   const [addressesList, setAddressesList] = useState([]);
-  // Stan dla szczegółów wybranego adresu
   const [selectedAddress, setSelectedAddress] = useState(null);
-  // Stan dla nowego adresu
+
   const [newAddress, setNewAddress] = useState('');
   const [newZipCode, setNewZipCode] = useState('');
   const [newCountry, setNewCountry] = useState('');
@@ -18,7 +15,6 @@ const Addresses = () => {
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
   const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
 
-  // Funkcja pobierająca listę adresów
   const fetchAddressesList = async () => {
     try {
       const response = await instance.get('/customers/address/list');
@@ -28,7 +24,6 @@ const Addresses = () => {
     }
   };
 
-  // Funkcja pobierająca szczegóły adresu
   const fetchAddressDetails = async (addressId) => {
     try {
       const response = await fetch(`http://localhost:8000/api/public/customers/address/${addressId}/details`);
@@ -39,7 +34,6 @@ const Addresses = () => {
     }
   };
 
-  // Funkcja do dodawania nowego adresu
   const addNewAddress = async () => {
     try {
       const response = await instance.post('/customers/address/add', {
@@ -51,7 +45,7 @@ const Addresses = () => {
         city: newCity,
       });
 
-    fetchAddressesList();  
+      fetchAddressesList();
     } catch (error) {
       console.error('Error adding new address:', error);
     }
@@ -101,50 +95,55 @@ const Addresses = () => {
     fetchAddressesList();
   }, []);
 
-  // Renderowanie komponentu
   return (
-    <div className="address-list">
-      <h2>Lista twoich adresów</h2>
-      <ul>
-      {addressesList.map((address) => (
-  <li key={address.id}>
-    {`${address.address} ${address.city} ${address.zipCode} ${address.country} `} {' '}
-    <button onClick={() => deleteAddress(address.id)}>Usuń</button>
-  </li>
-))}
+    <div>
+      <h1 className='ebokh1'>Adresy</h1>
+      <h2 className='ebokh2'>Lista twoich adresów</h2>
+      <ul className='ebokul'>
+        {addressesList.map((address) => (
+          <li className='ebokli' key={address.id}>
+            {`${address.address} ${address.city} ${address.zipCode} ${address.country} `} {' '}
+            <button className='ebokbutton' onClick={() => editAddress(address.id)}>Edytuj</button>
+            <button className='ebokbutton' onClick={() => deleteAddress(address.id)}>Usuń</button>
+          </li>
+        ))}
       </ul>
 
-      {/* Formularz do dodawania/edycji adresu */}
-      <div className="address-form">
-      <h2>Dodaj adres</h2>
-      <input
-        type="text"
-        placeholder="Ulica"
-        value={newAddress}
-        onChange={(e) => setNewAddress(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Kod pocztowy"
-        value={newZipCode}
-        onChange={(e) => setNewZipCode(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Kraj"
-        value={newCountry}
-        onChange={(e) => setNewCountry(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Miasto"
-        value={newCity}
-        onChange={(e) => setNewCity(e.target.value)}
-      />
-      <button onClick={addNewAddress}>Dodaj adres</button>
+      {/* Formularz do dodawania adresu */}
+      <div>
+        <h2 className='ebokh2'>Dodaj adres</h2>
+        <input
+          className='ebokinputext'
+          type="text"
+          placeholder="Ulica"
+          value={newAddress}
+          onChange={(e) => setNewAddress(e.target.value)}
+        />
+        <input
+          className='ebokinputext'
+          type="text"
+          placeholder="Kod pocztowy"
+          value={newZipCode}
+          onChange={(e) => setNewZipCode(e.target.value)}
+        />
+        <input
+          className='ebokinputext'
+          type="text"
+          placeholder="Kraj"
+          value={newCountry}
+          onChange={(e) => setNewCountry(e.target.value)}
+        />
+        <input
+          className='ebokinputext'
+          type="text"
+          placeholder="Miasto"
+          value={newCity}
+          onChange={(e) => setNewCity(e.target.value)}
+        />
+        <button onClick={addNewAddress} className='ebokbutton'>Dodaj adres</button>
       </div>
     </div>
   );
-};
+}
 
 export default Addresses;

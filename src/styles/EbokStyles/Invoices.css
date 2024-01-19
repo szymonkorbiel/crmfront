@@ -1,10 +1,22 @@
 .invoice {
     list-style-type: none;
 }
-
-.invoiced {
+.invoices button {
+    background-color: #ffb766;
+    color: #333;
+    border: 2px solid #333;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-}
-.invoiceo {
-    cursor: pointer;
-}
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .invoices button:hover {
+    background-color: #f43a09;
+    color: #fff;
+  }
+  
+  .invoices button:active {
+    background-color: #333;
+    color: #fff;
+  }

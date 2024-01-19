@@ -1,3 +1,6 @@
+html {
+  scroll-behavior: smooth;
+}
 .about-container {
     display: flex;
   }
@@ -6,23 +9,19 @@
     width: 200px;
     padding: 20px;
     background-color: #f7f7f7;
-    border-radius: 10px;
   }
   
   .list ul {
     list-style: none;
     padding: 0;
     position: sticky;
-    top: 120px; /* Dostosuj odpowiednią wartość top */
+    top: 120px;
   }
   
   .list ul li {
     margin-bottom: 10px;
   }
   
-  .content {
-    padding-left: 20px;
-  }
   
   /* Dodatkowe style, takie jak linki do kotwic */
   .list ul li a {
@@ -34,10 +33,66 @@
     color: #ffb766; /* Kolor tekstu po najechaniu myszką */
   }
   
-  h1{
-    color: #68d388;
+  .about h1{
+    color: grey;
   }
   h2{
     color: #ffb766;
   }
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; 
+    background-image: url('../assets/graphics/bg2.jpg');
+  }
   
+  .history-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .history {
+    flex: 1;
+    margin: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 2%;
+    width: 50%;
+    background: white;
+  }
+  
+  #mapa-zasiegu,
+  #technologia-ftth {
+    width: 100%;
+    margin-top: 20px;
+    
+  }
+
+  #mapa-zasiegu {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: lightgray;
+  }
+  #bg {
+    width: 100%;
+  }
+
+  @media (min-width: 110%) {
+    .history-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  
+    .history {
+      flex: 1;
+      margin: 10px;
+    }
+  
+    #mapa-zasiegu,
+    #technologia-ftth {
+      width: 100%;
+    }
+  }

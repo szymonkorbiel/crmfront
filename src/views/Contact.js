@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Contact.css';
+import ContactForm from '../externals/ContactForm';
 
 function FAQ() {
   const faqData = [
@@ -93,11 +94,14 @@ function FAQ() {
               <span className="icon" aria-hidden="true"></span>
             </button>
             <div className="accordion-content">
-              <p>{item.answer}</p>
+              <p className="answerp">{item.answer}</p>
             </div>
           </div>
         ))}
       </div>
+      <div className="contactform-section">
+    <ContactForm />
+  </div>
     </div>
   );
 }

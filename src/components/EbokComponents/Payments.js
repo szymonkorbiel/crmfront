@@ -1,44 +1,65 @@
-// Importy
 import React, { useState, useEffect } from 'react';
+import instance from '../../externals/instance';
+import '../../styles/EbokHome.css';
 
-// Komponent Payments
 const Payments = () => {
-  // Stan dla listy płatności
   const [paymentsList, setPaymentsList] = useState([]);
 
-  // Funkcja pobierająca listę płatności
   const fetchPaymentsList = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/public/payments/list');
-      const data = await response.json();
-      setPaymentsList(data);
+      const response = await instance.get('/payments/list');
+      setPaymentsList(response.data.payments);
     } catch (error) {
       console.error('Error fetching payments list:', error);
     }
   };
 
-  // Efekt pobierający listę płatności po zamontowaniu komponentu
   useEffect(() => {
     fetchPaymentsList();
   }, []);
 
-  // Renderowanie komponentu
+  // Function to get the payment method based on the 'paidBy' value
+  const getPaymentMethod = (paidBy) => {
+    switch (paidBy) {
+      case 0:
+        return 'Card';
+      case 1:
+        return 'BLIK';
+      case 2:
+        return 'Online Payment';
+      case 3:
+        return 'Cash';
+      default:
+        return 'Unknown';
+    }
+  };
+
+  // Function to get the payment status based on the 'status' value
+  const getPaymentStatus = (status) => {
+    switch (status) {
+      case 0:
+        return 'Pending';
+      case 1:
+        return 'Posted';
+      default:
+        return 'Unknown';
+    }
+  };
+
   return (
     <div>
-{/* Wyświetlenie listy płatności */}
-<h2>Payments List</h2>
-<ul>
-  {Array.isArray(paymentsList) && paymentsList.length > 0 ? (
-    paymentsList.map((payment) => (
-      <li key={payment.id}>
-        {payment.amount} - {payment.description}
-      </li>
-    ))
-  ) : (
-    <p>No payments available.</p>
-  )}
-</ul>
-
+      <h2 className='ebokh2'>Payments List</h2>
+      <ul className='ebokul'>
+        {Array.isArray(paymentsList) && paymentsList.length > 0 ? (
+          paymentsList.map((payment) => (
+            <li className='ebokli' key={payment.id}>
+              {payment.amount} PLN - {payment.bill.number} - Paid by: {getPaymentMethod(payment.paidBy)} - Status: {getPaymentStatus(payment.status)}
+            </li>
+          ))
+        ) : (
+          <p className='ebokp'>No payments available.</p>
+        )}
+      </ul>
     </div>
   );
 };

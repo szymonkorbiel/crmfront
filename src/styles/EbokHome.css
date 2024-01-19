@@ -23,7 +23,7 @@
 .right-aa {
   width: 85%;
   padding: 0 10px;
-  border: 1px dashed black;
+  background-color: white;
 }
 
 .tab-container {
@@ -55,12 +55,114 @@
 }
 
 .eboktab-link {
-  /* Dodaj style dla linków */
   color: #333;
   text-decoration: none;
   padding: 10px;
   transition: color 0.3s ease;
 }
 
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 8px; 
 
+}
 
+.ebokp {
+  color: #0335a6;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.ebokinputext {
+  color: #f43a09;
+  border: 1px solid #f43a09;
+  padding: 8px;
+}
+
+.ebokh1 {
+  color: #ffb766;
+  font-size: 24px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.ebokh2 {
+  color: #3498db;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.ebokh3{
+  color: #0335a6;
+}
+
+.ebokbutton {
+  color: white;
+  background-color: #ffb766;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin: 2px;
+}
+
+.ebokbutton:hover {
+  background-color: #f43a09; 
+  color: white;
+}
+
+.ebokul {
+  list-style-type: none;
+}
+
+.ebokli {
+  color: #3498db;
+  font-weight: bold;
+}
+
+.eboklabel {
+  color: #3498db;
+}
+
+.ebokvalue {
+  color: grey;
+  font-weight: bold;
+}
+
+.ebokcheckbox {
+  background-color: yellow;
+}
+
+.ebokpassword {
+  background-color: #0335a6;
+}
+
+.ebokselect {
+  color:#68d388;
+}
+
+.ebokoption {
+  color: red;
+}
+
+th, td {
+  padding: 10px;
+  min-width: 150px;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  border-bottom: 1px solid #ffb766;
+}
+
+.ebokth {
+  color: #0335a6;
+}

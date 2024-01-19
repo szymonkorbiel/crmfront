@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
 import AuthService from '../../externals/auth';
 import { Navigate, useNavigate } from 'react-router-dom';
+import '../../styles/EbokHome.css';
 // Komponent Settings
 const Settings = () => {
   // Stan dla szczegółów ustawień
@@ -93,10 +94,13 @@ const Settings = () => {
 
       {/* Formularz aktualizacji ustawień */}
       {settingsDetails && (
+        
         <form onSubmit={(e) => { e.preventDefault(); updateSettings(AuthService.getCurrentUser().id); }}>
-          <label>
+          <h1 className='ebokh1'>Ustawienia konta</h1>
+          <label className='eboklabel'>
             Email Notification:
             <input
+              className='ebokcheckbox'
               type="checkbox"
               name="emailNotification"
               checked={updatedSettings.emailNotification}
@@ -104,9 +108,10 @@ const Settings = () => {
             />
           </label>
 
-          <label>
+          <label className='eboklabel'>
             SMS Notification:
             <input
+              className='ebokcheckbox'
               type="checkbox"
               name="smsNotification"
               checked={updatedSettings.smsNotification}
@@ -114,9 +119,10 @@ const Settings = () => {
             />
           </label>
 
-          <label>
+          <label className='eboklabel'>
             Two-Factor Authentication:
             <input
+              className='ebokcheckbox'
               type="checkbox"
               name="twoFactor"
               checked={updatedSettings.twoFactor}
@@ -124,16 +130,17 @@ const Settings = () => {
             />
           </label>
 
-          <button type="submit">Update Settings</button>
+          <button className='ebokbutton' type="submit">Update Settings</button>
         </form>
       )}
 
       {/* Zmiana hasła */}
       <div className="password-form">
-  <h2>Change Password</h2>
+  <h2 className='ebokh2'>Change Password</h2>
   <form>
-    <label htmlFor="oldPassword">Old Password:</label>
+    <label className="eboklabel" htmlFor="oldPassword">Old Password:</label>
     <input
+      className='ebokpassword'
       type="password"
       id="oldPassword"
       placeholder="Enter your old password"
@@ -141,8 +148,9 @@ const Settings = () => {
       onChange={(e) => setOldPassword(e.target.value)}
     />
 
-    <label htmlFor="newPassword">New Password:</label>
+    <label className="eboklabel" htmlFor="newPassword">New Password:</label>
     <input
+      className='ebokpassword'
       type="password"
       id="newPassword"
       placeholder="Enter your new password"
@@ -150,7 +158,7 @@ const Settings = () => {
       onChange={(e) => setNewPassword(e.target.value)}
     />
 
-    <button onClick={handleChangePassword}>Change Password</button>
+    <button className='ebokbutton' onClick={handleChangePassword}>Change Password</button>
   </form>
 </div>
     </div>

@@ -28,7 +28,7 @@ const CookieInfo = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          opacity: '0.8',
+          opacity: '0.9',
           fontSize: '14px',
           fontWeight: 'bold',
         }}
@@ -38,7 +38,7 @@ const CookieInfo = () => {
         </p>
         <button
           style={{
-            backgroundColor: '#68d388',
+            backgroundColor: '#3498db',
             color: '#ffffff',
             border: 'none',
             padding: '8px 12px',
@@ -49,8 +49,8 @@ const CookieInfo = () => {
             fontWeight: 'bold',
           }}
           onClick={handleAccept}
-          onMouseOver={(e) => (e.target.style.backgroundColor = '#0fd64a')}
-          onMouseOut={(e) => (e.target.style.backgroundColor = '#68d388')}
+          onMouseOver={(e) => (e.target.style.backgroundColor = '#f43a09')}
+          onMouseOut={(e) => (e.target.style.backgroundColor = '#3498db')}
         >
           OK, rozumiem
         </button>

@@ -7,8 +7,6 @@ import Contracts from './EbokComponents/Contracts';
 import Addresses from './EbokComponents/Addresses';
 import Settings from './EbokComponents/Settings';
 import Messages from './EbokComponents/Messages';
-import Models from './EbokComponents/Models';
-import Offers from './EbokComponents/Offers';
 import Payments from './EbokComponents/Payments';
 import ServiceRequests from './EbokComponents/ServiceRequests';
 import ServiceVisits from './EbokComponents/ServiceVisits';
@@ -34,17 +32,15 @@ const EbokHome = () => {
   return (
     <div className="home-container">
       <div className="left-aaa">
-      <TabLink to="/ebokhome/profile" label={<><IoMan /> Profile</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/invoices" label={<><FaFileInvoice /> Invoices</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/contracts" label={<><FaFileContract /> Contracts</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/addresses" label={<><FaAddressBook /> Addresses</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/settings" label={<><IoMdSettings /> Settings</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/messages" label={<><FaEnvelope /> Messages</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/models" label={<><MdRouter /> Models</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/offers" label={<><MdLocalOffer /> Offers</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/payments" label={<><FaDollarSign /> Payments</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/service-requests" label={<><RiCustomerService2Fill /> Service Requests</>} selectedTab={selectedTab} onClick={handleTabClick} />
-<TabLink to="/ebokhome/service-visits" label={<><MdOutlineMiscellaneousServices /> Service Visits</>} selectedTab={selectedTab} onClick={handleTabClick} />
+      <TabLink to="/ebokhome/profile" label={<><IoMan /> Profil</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/invoices" label={<><FaFileInvoice /> Faktury</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/contracts" label={<><FaFileContract /> Umowy</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/addresses" label={<><FaAddressBook /> Adresy</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/settings" label={<><IoMdSettings /> Ustawienia</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/messages" label={<><FaEnvelope /> Wiadomości</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/payments" label={<><FaDollarSign /> Opłaty</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/service-requests" label={<><RiCustomerService2Fill /> Żądania serwisowe</>} selectedTab={selectedTab} onClick={handleTabClick} />
+<TabLink to="/ebokhome/service-visits" label={<><MdOutlineMiscellaneousServices /> Wizyty serwisowe</>} selectedTab={selectedTab} onClick={handleTabClick} />
 
       </div>
       <div className="right-aa">
@@ -56,8 +52,6 @@ const EbokHome = () => {
           <Route path="addresses" element={<Addresses />} />
           <Route path="settings" element={<Settings />} />
           <Route path="messages" element={<Messages />} />
-          <Route path="models" element={<Models />} />
-          <Route path="offers" element={<Offers />} />
           <Route path="payments" element={<Payments />} />
           <Route path="service-requests" element={<ServiceRequests />} />
           <Route path="service-visits" element={<ServiceVisits />} />

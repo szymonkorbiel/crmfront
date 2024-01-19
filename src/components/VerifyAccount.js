@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { verifyEmail } from '../externals/api'; // Importuj odpowiednią funkcję
-
+import '../styles/LoginForm.css';
 
 function VerifyAccount() {
   const location = useLocation();
@@ -24,7 +24,7 @@ function VerifyAccount() {
     try {
       // Tutaj możesz dodać dodatkową walidację adresu e-mail przed weryfikacją
       if (!query || !email) {
-        alert('Brak fragmentu zapytania lub adresu e-mail.');
+        alert('Błędny adres e-mail.');
         return;
       }
   
@@ -46,16 +46,16 @@ function VerifyAccount() {
   };
 
   return (
-    <div>
-      <h1>Weryfikacja konta</h1>
-      <p>Twój fragment zapytania: {query} oraz podany {email}</p>
+    <div className='login-form' style={{margin:"0 auto", minHeight:"450px", textAlign:"center", paddingTop:"25vh"}}>
+      <h1 style={{color:"#ffb766"}}>Weryfikacja konta</h1>
+      <p style={{fontWeight:"bold"}}>Wprowadź swój email oraz zatwierdź</p>
       <input
         type="email"
         placeholder="Adres e-mail"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button onClick={handleVerification}>Potwierdź weryfikację</button>
+      <button style={{}} onClick={handleVerification}>Potwierdź weryfikację</button>
     </div>
   );
 }

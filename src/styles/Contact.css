@@ -1,14 +1,12 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Hind', sans-serif;
-  background: #fff;
-  color: #4d5974;
-}
-
 .containerfaq {
   margin: 0 auto;
+  border: 5px solid #3498db;
+  background-image: url('../assets/graphics/bg2.jpg');
+}
+
+.accordion {
   padding: 4rem;
+  background: white;
 }
 
 .accordion .accordion-item {
@@ -35,11 +33,11 @@ body {
 .accordion button:hover,
 .accordion button:focus {
   cursor: pointer;
-  color: #68d388;
+  color: #3498db;
 }
 
 .accordion button[aria-expanded='true'] {
-  color: #68d388;
+  color: #3498db;
 }
 
 .accordion button .icon {
@@ -86,6 +84,7 @@ body {
   transition: opacity 200ms linear, max-height 200ms linear;
   will-change: opacity, max-height;
   padding: 10px;
+  background-color: #3498db;
 }
 
 .accordion button[aria-expanded='true'] + .accordion-content {
@@ -95,5 +94,21 @@ body {
 
 .h2faq {
   text-align: center;
+  padding: 4rem;
 }
 
+.answerp {
+  color: white;
+  font-weight: bold;
+}
+
+.contactform-section {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #ffb766;
+  margin: 0 auto;
+  background-image: url('../assets/graphics/bg2.jpg');
+}

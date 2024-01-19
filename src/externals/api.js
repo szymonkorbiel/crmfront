@@ -104,10 +104,31 @@ export const loginUser = async (credentials) => {
       return response.data;
     }
   } catch (error) {
-    throw error.response ? error.response.data : 'Błąd logowania. Wystąpił nieznany błąd.';
+    console.log(error.response.headers["set-cookies"]);
+    throw error ? error.response.data : 'Błąd logowania. Wystąpił nieznany błąd.';
   }
 };
 
+export const confirmLogin = async ({code}) => {
+  axios.defaults.withCredentials = true;
+  try {
+      const response = await axios.post('http://localhost:8000/api/login/2fa_check', {authCode:code});
+        /*const response = fetch('http://localhost:8000/api/login/2fa_check',{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({authCode:code})
+        })*/
+        console.log(response);
+    if (response && response.data) {
+      const decoded = jwtDecode(response.data.token);
+      AuthService.login(response.data.token, response.data.refresh_token, response.data.user, decoded.exp);
+
+      return response.data;
+    }
+  } catch (error) {
+    throw error.response ? error.response.data : 'Błąd logowania. Wystąpił nieznany błąd.';
+  }
+}
 
 export const verifyEmail = async ({ email, query }) => {
   try {

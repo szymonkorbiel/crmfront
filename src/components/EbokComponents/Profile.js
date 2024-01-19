@@ -1,9 +1,11 @@
+// Importy
 import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
-import '../../styles/EbokStyles/Profile.css';
+import '../../styles/EbokHome.css';
 import AuthService from '../../externals/auth';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { IoMan, FaFileInvoice, FaFileContract, FaAddressBook, IoMdSettings, FaEnvelope, MdRouter, MdLocalOffer, FaDollarSign, MdOutlineMiscellaneousServices, RiCustomerService2Fill } from "../../assets/graphics/icons/iconImports";
+
 // Komponent Profile
 const Profile = () => {
   // Stan dla szczegółów profilu
@@ -13,6 +15,7 @@ const Profile = () => {
   // Stan dla nowego hasła
 
   const navigate = useNavigate();
+
   // Funkcja pobierająca szczegóły profilu
   const fetchProfileDetails = async () => {
     try {
@@ -24,7 +27,19 @@ const Profile = () => {
     }
   };
 
-
+  const formatDateWithoutTime = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      weekday: 'long',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    };
+  
+    const formattedDate = date.toLocaleString('en-US', options);
+  
+    return formattedDate;
+  };
 
   // Efekt pobierający szczegóły profilu po zamontowaniu komponentu
   useEffect(() => {
@@ -34,108 +49,94 @@ const Profile = () => {
   // Renderowanie komponentu
   return (
     <div>
-      <h2>Your profile details</h2>
+      <h2 style={{ textAlign: "center" }}>Informacje o Twoim koncie</h2>
 
-{profileDetails ? (
-  <div className="profile-grid">
-    {/* Account Details */}
-    <div className="profile-section">
-      <h3>Your account</h3>
-      <div className="value">{profileDetails.firstName}</div>
-      <div className="value">{profileDetails.lastName}</div>
-      <div className="value">{profileDetails.email}</div>
-    </div>
+      {profileDetails ? (
+        <div className="profile-grid">
+          {/* Account Details */}
+          <div className="profile-section">
+            <h3 className='ebokh3'>Podstawowe dane</h3>
+            <div className="ebokvalue">{profileDetails.firstName}</div>
+            <div className="ebokvalue">{profileDetails.lastName}</div>
+            <div className="ebokvalue">{profileDetails.email}</div>
+          </div>
 
-    {/* Personal Details */}
-    <div className="profile-section">
-      <h3>Personal Details</h3>
-      <div className="label">First Name:</div>
-      <div className="value">{profileDetails.firstName}</div>
+          {/* Personal Details */}
+          <div className="profile-section">
+            <h3 className='ebokh3'>Szczegóły personalne</h3>
+            <div className="eboklabel">Imię:</div>
+            <div className="ebokvalue">{profileDetails.firstName}</div>
 
-      <div className="label">Last Name:</div>
-      <div className="value">{profileDetails.lastName}</div>
+            <div className="eboklabel">Nazwisko:</div>
+            <div className="ebokvalue">{profileDetails.lastName}</div>
 
-      <div className="label">Birth Date:</div>
-      <div className="value">{profileDetails.birthDate?.date}</div>
-    </div>
+            <div className="eboklabel">Data urodzenia:</div>
+            <div className="ebokvalue">{formatDateWithoutTime(profileDetails.birthDate?.date)}</div>
+          </div>
 
-    {/* Contact Details */}
-    <div className="profile-section">
-      <h3>Contact Details</h3>
-      <div className="label">Email:</div>
-      <div className="value">{profileDetails.email}</div>
+          {/* Contact Details */}
+          <div className="profile-section">
+            <h3 className='ebokh3'>Szczegóły kontaktowe</h3>
+            <div className="eboklabel">Email:</div>
+            <div className="ebokvalue">{profileDetails.email}</div>
 
-      <div className="label">Phone Number:</div>
-      <div className="value">{profileDetails.phoneNumber}</div>
-    </div>
+            <div className="eboklabel">Numer telefonu:</div>
+            <div className="ebokvalue">{profileDetails.phoneNumber}</div>
+          </div>
 
-    {/* Verification Details */}
-    <div className="profile-section">
-      <h3>Verification Details</h3>
-      <div className="label">Is Verified:</div>
-      <div className="value">{profileDetails.isVerified ? 'Yes' : 'No'}</div>
+          {/* Verification Details */}
+          <div className="profile-section">
+            <h3 className='ebokh3'>Szczegóły weryfikacji</h3>
+            <div className="eboklabel">Czy konto jest zweryfikowane:</div>
+            <div className="ebokvalue">{profileDetails.isVerified ? 'Yes' : 'No'}</div>
 
-      <div className="label">Two Factor Auth:</div>
-      <div className="value">{profileDetails.twoFactorAuth ? 'Yes' : 'No'}</div>
+            <div className="eboklabel">Podwójna autentykacja:</div>
+            <div className="ebokvalue">{profileDetails.twoFactorAuth ? 'Yes' : 'No'}</div>
 
-      <div className="label">Is Activated:</div>
-    <div className="value">{profileDetails.isActive ? 'Yes' : 'No'}</div>
-    </div>
+            <div className="eboklabel">Czy konto jest aktywowane:</div>
+            <div className="ebokvalue">{profileDetails.isActive ? 'Yes' : 'No'}</div>
+          </div>
 
-    {/* Company Details */}
-    <div className="profile-section">
-      <h3>Company Details</h3>
-      <div className="label">Social Security Number:</div>
-      <div className="value">{profileDetails.socialSecurityNumber}</div>
-      
-    <div className="label">Number of Contracts:</div>
-    <div className="value">{profileDetails.numberOfContracts}</div>
+          {/* Company Details */}
+          <div className="profile-section">
+            <h3 className='ebokh3'>Inne</h3>
+            <div className="eboklabel">Numer ubezpieczenia:</div>
+            <div className="ebokvalue">{profileDetails.socialSecurityNumber}</div>
 
-    <div className="label">Number of Devices:</div>
-    <div className="value">{profileDetails.numberOfDevices}</div>
+            <div className="eboklabel">Liczba umów:</div>
+            <div className="ebokvalue">{profileDetails.numberOfContracts}</div>
 
-    <div className="label">Number of Service Requests:</div>
-    <div className="value">{profileDetails.numberOfServiceRequests}</div>
+            <div className="eboklabel">Liczba urządzeń:</div>
+            <div className="ebokvalue">{profileDetails.numberOfDevices}</div>
 
-    <div className="label">Number of Bills:</div>
-    <div className="value">{profileDetails.numberOfBills}</div>
+            <div className="eboklabel">Liczba serwisów:</div>
+            <div className="ebokvalue">{profileDetails.numberOfServiceRequests}</div>
 
-    <div className="label">Number of Payments:</div>
-    <div className="value">{profileDetails.numberOfPayments}</div>
+            <div className="eboklabel">Liczba rachunków:</div>
+            <div className="ebokvalue">{profileDetails.numberOfBills}</div>
 
-    <div className="label">Number of Messages:</div>
-    <div className="value">{profileDetails.numberOfMessages}</div>
+            <div className="eboklabel">Liczba płatności:</div>
+            <div className="ebokvalue">{profileDetails.numberOfPayments}</div>
 
-    </div>
+            <div className="eboklabel">Liczba wiadomości:</div>
+            <div className="ebokvalue">{profileDetails.numberOfMessages}</div>
+          </div>
 
-        {/* Notification Details */}
-        <div className="profile-section">
-      <h3>Notification Settings</h3>
-      
-    <div className="label">SMS Notification:</div>
-    <div className="value">{profileDetails.smsNotification ? 'Yes' : 'No'}</div>
+          {/* Notification Details */}
+          <div className="profile-section">
+            <h3 className='ebokh3'>Informacje o powiadomieniach</h3>
 
-    <div className="label">Email Notification:</div>
-    <div className="value">{profileDetails.emailNotification ? 'Yes' : 'No'}</div>
+            <div className="eboklabel">Powiadomienia SMS:</div>
+            <div className="ebokvalue">{profileDetails.smsNotification ? 'Tak' : 'Nie'}</div>
 
-    </div>
+            <div className="eboklabel">Powiadomienia Email:</div>
+            <div className="ebokvalue">{profileDetails.emailNotification ? 'Tak' : 'Nie'}</div>
+          </div>
 
-  </div>
-) : (
-  <p>Loading profile details...</p>
-)}
-
-
-      {/* Edycja profilu */}
-      {editMode && (
-        <div>
-          <h2>Edit Profile</h2>
-          {/* Dodaj pola do edycji profilu zgodnie z odpowiedzią z API */}
         </div>
+      ) : (
+        <p className='ebokp'>Ładowanie szczegółów profilu...</p>
       )}
-
-      
-
     </div>
   );
 };

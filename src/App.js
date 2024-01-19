@@ -1,7 +1,6 @@
 // App.js
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
 import ScrollToTop from './components/ScrollToTop';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -35,9 +34,6 @@ function App() {
   document.title = 'CRMConnect';
   return (
     <BrowserRouter>
-      <Helmet>
-        <link rel="icon" type="image/png" href="./assets/graphics/favicon.png" />
-      </Helmet>
       <Header />
       <Routes>
         <Route path="/" element={<MainContent />} />

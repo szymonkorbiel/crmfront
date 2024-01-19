@@ -1,6 +1,7 @@
 // Importy
 import React, { useState, useEffect } from 'react';
-
+import instance from '../../externals/instance';
+import '../../styles/EbokHome.css';
 // Komponent ServiceVisits
 const ServiceVisits = () => {
   // Stan dla listy wizyt serwisowych
@@ -11,9 +12,8 @@ const ServiceVisits = () => {
   // Funkcja pobierająca listę wizyt serwisowych
   const fetchServiceVisitsList = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/public/service/visit/list');
-      const data = await response.json();
-      setServiceVisitsList(data);
+      const response = await instance.get('/service/visit/list');
+      setServiceVisitsList(response.data.results.serviceVisits);
     } catch (error) {
       console.error('Error fetching service visits list:', error);
     }
@@ -22,9 +22,8 @@ const ServiceVisits = () => {
   // Funkcja pobierająca szczegóły wizyty serwisowej
   const fetchServiceVisitDetails = async (visitId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/service/visit/${visitId}/detail`);
-      const data = await response.json();
-      setSelectedServiceVisit(data);
+      const response = await instance.get(`/service/visit/${visitId}/detail`);
+      setSelectedServiceVisit(response.data.serviceVisit);
     } catch (error) {
       console.error('Error fetching service visit details:', error);
     }
@@ -33,7 +32,7 @@ const ServiceVisits = () => {
   // Funkcja do anulowania wizyty serwisowej
   const cancelServiceVisit = async (visitId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/service/visit/${visitId}/cancel`, {
+      const response = await instance.delete(`/service/visit/${visitId}/cancel`, {
         method: 'DELETE',
       });
 
@@ -59,18 +58,19 @@ const ServiceVisits = () => {
   return (
     <div>
 {/* Wyświetlenie listy wizyt serwisowych */}
-<h2>Service Visits List</h2>
+
+<h2 className='ebokh2'>Service Visits List</h2>
 <ul>
   {Array.isArray(serviceVisitsList) && serviceVisitsList.length > 0 ? (
     serviceVisitsList.map((visit) => (
-      <li key={visit.id}>
-        {visit.date} - {visit.description} -{' '}
-        <button onClick={() => fetchServiceVisitDetails(visit.id)}>Details</button>
-        <button onClick={() => cancelServiceVisit(visit.id)}>Cancel</button>
+      <li className='ebokli' key={visit.id}>
+        {visit.title} - {visit.id} -{' '}
+        <button className='ebokbutton' onClick={() => fetchServiceVisitDetails(visit.id)}>Details</button>
+        <button className='ebokbutton' onClick={() => cancelServiceVisit(visit.id)}>Cancel</button>
       </li>
     ))
   ) : (
-    <p>No service visits available.</p>
+    <p className='ebokp'>No service visits available.</p>
   )}
 </ul>
 
@@ -78,8 +78,8 @@ const ServiceVisits = () => {
       {/* Wyświetlenie szczegółów wybranej wizyty serwisowej */}
       {selectedServiceVisit && (
         <div>
-          <h2>Service Visit Details</h2>
-          <p>ID: {selectedServiceVisit.id}</p>
+          <h2 className='ebokh2'>Service Visit Details</h2>
+          <p className='ebokp'>ID: {selectedServiceVisit.id}</p>
           {/* Dodaj pozostałe informacje zgodnie z odpowiedzią z API */}
         </div>
       )}

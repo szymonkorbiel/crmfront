@@ -1,6 +1,7 @@
 // Importy
 import React, { useState, useEffect } from 'react';
-
+import instance from '../../externals/instance';
+import '../../styles/EbokStyles/Addresses.css';
 // Komponent Offers
 const Offers = () => {
   // Stan dla listy ofert
@@ -11,9 +12,8 @@ const Offers = () => {
   // Funkcja pobierająca listę ofert
   const fetchOffersList = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/public/offer/list');
-      const data = await response.json();
-      setOffersList(data);
+      const response = await instance.get('/offer/list');
+      setOffersList(response.data.results.offers);
     } catch (error) {
       console.error('Error fetching offers list:', error);
     }
@@ -22,9 +22,8 @@ const Offers = () => {
   // Funkcja pobierająca szczegóły oferty
   const fetchOfferDetails = async (offerId) => {
     try {
-      const response = await fetch(`http://localhost:8000/api/public/offer/${offerId}/detail`);
-      const data = await response.json();
-      setSelectedOffer(data);
+      const response = await instance.get(`/offer/${offerId}/detail`);
+      setSelectedOffer(response.data.offer);
     } catch (error) {
       console.error('Error fetching offer details:', error);
     }
@@ -44,7 +43,7 @@ const Offers = () => {
   {Array.isArray(offersList) && offersList.length > 0 ? (
     offersList.map((offer) => (
       <li key={offer.id}>
-        {offer.name} - <button onClick={() => fetchOfferDetails(offer.id)}>Details</button>
+        {offer.title} - <button class="address-form" onClick={() => fetchOfferDetails(offer.id)}>Details</button>
       </li>
     ))
   ) : (
@@ -57,8 +56,10 @@ const Offers = () => {
       {selectedOffer && (
         <div>
           <h2>Offer Details</h2>
-          <p>ID: {selectedOffer.id}</p>
-          {/* Dodaj pozostałe informacje zgodnie z odpowiedzią z API */}
+          <p>Description: {selectedOffer.description}</p>
+          <p>Download Speed: {selectedOffer.downloadSpeed} Mbps</p>
+          <p>Upload Speed: {selectedOffer.uploadSpeed} Mbps</p>
+          <p>Price: {selectedOffer.price} PLN</p>
         </div>
       )}
     </div>
