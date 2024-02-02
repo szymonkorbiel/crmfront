@@ -38,11 +38,23 @@ const Payments = () => {
   const getPaymentStatus = (status) => {
     switch (status) {
       case 0:
-        return 'W trakcie';
+        return (
+          <span style={{ backgroundColor: '#ffb766', padding: '2px', borderRadius: '5px', color:'white' }}>
+            W trakcie
+          </span>
+        );
       case 1:
-        return 'Opłacone';
+        return (
+          <span style={{ backgroundColor: 'green', padding: '2px', margin: '2px', borderRadius: '5px', color:'white' }}>
+            Opłacone
+          </span>
+        );
       default:
-        return 'Nieznane';
+        return (
+          <span style={{ backgroundColor: 'red', padding: '5px', borderRadius: '5px', color:'white' }}>
+            Nieopłacona
+          </span>
+        );
     }
   };
 

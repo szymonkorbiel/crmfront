@@ -1,132 +1,144 @@
 import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
-import AuthService from '../../externals/auth';
+import Modal from '../../externals/Modal'; 
 import '../../styles/EbokHome.css';
+
 const ServiceRequests = () => {
   const [serviceRequestsList, setServiceRequestsList] = useState([]);
   const [selectedServiceRequest, setSelectedServiceRequest] = useState(null);
-  const [newServiceRequest, setNewServiceRequest] = useState('');
-  const [contractsList, setContractsList] = useState([]);
-  const [selectedContract, setSelectedContract] = useState('');
+  const [isDetailsOverlayVisible, setDetailsOverlayVisible] = useState(false);
 
-  const fetchServiceRequestsList = async () => {
-    try {
-      const response = await instance.get('/service-requests/list');
-      setServiceRequestsList(response.data.results.serviceRequests);
-    } catch (error) {
-      console.error('Error fetching service requests list:', error);
-    }
+  const formatHourWithMinutes = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    };
+
+    const formattedTime = date.toLocaleString('pl-PL', options);
+
+    return formattedTime;
   };
 
-  const fetchServiceRequestDetails = async (requestId) => {
+  const formatDateWithTime = (dateString) => {
+    const date = new Date(dateString);
+    const options = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    };
+  
+    const formattedDate = date.toLocaleString('pl-PL', options);
+  
+    return formattedDate;
+  }
+
+  useEffect(() => {
+    const fetchServiceRequests = async () => {
+      try {
+        const response = await instance.get('/service-requests/list');
+        setServiceRequestsList(response.data.results.serviceRequests);
+      } catch (error) {
+        console.error('Error fetching service requests:', error);
+      }
+    };
+
+    fetchServiceRequests();
+  }, []);
+
+  const handleServiceRequestClick = async (requestId) => {
     try {
-      const response = await instance.get(`service-requests/${requestId}/detail`);
+      const response = await instance.get(`/service-requests/${requestId}/detail`);
       setSelectedServiceRequest(response.data.serviceRequest);
+      openDetailsOverlay(); 
     } catch (error) {
       console.error('Error fetching service request details:', error);
     }
   };
 
-  const cancelServiceRequest = async (requestId) => {
-    try {
-      const response = await instance.delete(`service-requests/${requestId}/cancel`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        console.log('Service request canceled successfully!');
-        fetchServiceRequestsList();
-      } else {
-        console.error('Error canceling service request');
-      }
-    } catch (error) {
-      console.error('Error canceling service request:', error);
-    }
+  const openDetailsOverlay = () => {
+    setDetailsOverlayVisible(true);
   };
 
-  const createServiceRequest = async () => {
-    try {
-      const response = await instance.post('/service-requests/create', {
-          description: newServiceRequest,
-          customer: AuthService.getCurrentUser().id,
-          contract: selectedContract,
-      });
-
-      if (response.ok) {
-        console.log('Service request created successfully!');
-        fetchServiceRequestsList();
-        setNewServiceRequest('');
-      } else {
-        console.error('Error creating service request');
-      }
-    } catch (error) {
-      console.error('Error creating service request:', error);
-    }
+  const closeDetailsOverlay = () => {
+    setDetailsOverlayVisible(false);
   };
-
-  const fetchContractsList = async () => {
-    try {
-      const response = await instance.get('/contracts/list');
-      setContractsList(response.data.results);
-      // Domyślnie ustaw pierwszy kontrakt jako wybrany
-      if (response.data.results.length > 0) {
-        setSelectedContract(response.data.results[0].id);
-      }
-    } catch (error) {
-      console.error('Error fetching contracts list:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchServiceRequestsList();
-    fetchContractsList();
-  }, []);
 
   return (
     <div>
-      <h2 className='ebokh2'>Service Requests List</h2>
-      <ul>
-        {Array.isArray(serviceRequestsList) && serviceRequestsList.length > 0 ? (
-          serviceRequestsList.map((request) => (
-            <li className='ebokli' key={request.id}>
-              {request.date} - {request.description} -{' '}
-              <button className='ebokbutton' onClick={() => fetchServiceRequestDetails(request.id)}>Details</button>
-              <button className='ebokbutton' onClick={() => cancelServiceRequest(request.id)}>Cancel</button>
-            </li>
-          ))
-        ) : (
-          <p className='ebokp'>No service requests available.</p>
-        )}
+      <h1 className='ebokh1'>Lista twoich serwisów</h1>
+      <ul className="ebokul">
+        <li className='ebokli' key="header">
+          <table>
+            <thead>
+              <tr>
+                <th className='ebokth'></th>
+                <th className='ebokth'>Status</th>
+                <th className='ebokth'>Data utworzenia</th>
+                <th className='ebokth'>Kontrakt</th>
+                <th className='ebokth'>Akcje</th>
+              </tr>
+            </thead>
+            <tbody>
+              {serviceRequestsList.map((request, index) => (
+                <tr key={request.id}>
+                  <td>
+                    <p style={{ color: "#0335a6" }}>{index + 1}&nbsp;</p>
+                  </td>
+                  <td>
+                    <div style={{ minWidth: '300px', paddingLeft: "50px" }}>
+                      {request.closed ? 'Zamknięte' : 'Otwarte'}
+                    </div>
+                  </td>
+                  <td>
+                    <div style={{ minWidth: '300px', paddingLeft: "50px" }}>
+                      {formatDateWithTime(request.createdDate.date)}
+                    </div>
+                  </td>
+                  <td>
+                    <div style={{ minWidth: '300px', paddingLeft: "50px" }}>
+                      {request.contract.number}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <button className='ebokbutton' onClick={() => handleServiceRequestClick(request.id)}>Szczegóły</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </li>
       </ul>
 
-      {selectedServiceRequest && (
-        <div>
-          <h2 className='ebokh2'>Service Request Details</h2>
-          <p className='ebokp'>ID: {selectedServiceRequest.id}</p>
-        </div>
-      )}
-
-      <div>
-        <h2 className='ebokh2'>Create Service Request</h2>
-        <input
-          className='ebokinputext'
-          type="text"
-          placeholder="New Service Request"
-          value={newServiceRequest}
-          onChange={(e) => setNewServiceRequest(e.target.value)}
-        />
-
-        {/* Wybór kontraktu */}
-        <select className='ebokselect' value={selectedContract} onChange={(e) => setSelectedContract(e.target.value)}>
-          {contractsList.map((contract) => (
-            <option className='ebokoption' key={contract.id} value={contract.id}>
-              {contract.contractNumber}
-            </option>
-          ))}
-        </select>
-
-        <button className='ebokbutton' onClick={createServiceRequest}>Create Service Request</button>
+      {isDetailsOverlayVisible && (
+  <Modal onClose={closeDetailsOverlay}>
+    {selectedServiceRequest && (
+      <div style={{marginLeft:"20px"}}>
+        <h2 className='ebokh2'>Szczegóły zadania serwisowego</h2>
+        <p className='ebokp'>ID: <span style={{color:"gray"}}>{selectedServiceRequest.id}</span></p>
+        {selectedServiceRequest.customer && (
+          <p className='ebokp'>Klient: <span style={{color:"gray"}}>{selectedServiceRequest.customer.name} {selectedServiceRequest.customer.surname}</span></p>
+        )}
+        <p className='ebokp'>Data utworzenia: <span style={{color:"gray"}}>{selectedServiceRequest.createdDate.date}</span></p>
+        <p className='ebokp'>Kontrakt ID: <span style={{color:"gray"}}>{selectedServiceRequest.contract.id}</span></p>
+        <p className='ebokp'>Numer kontraktu: <span style={{color:"gray"}}>{selectedServiceRequest.contract.number}</span></p>
+        {selectedServiceRequest.user && (
+          <p className='ebokp'>Użytkownik: <span style={{color:"gray"}}>{selectedServiceRequest.user.name} {selectedServiceRequest.user.surname}</span></p>
+        )}
+        {selectedServiceRequest.localization && (
+          <p className='ebokp'>Adres: <span style={{color:"gray"}}>{selectedServiceRequest.localization.address}, {selectedServiceRequest.localization.zipCode} {selectedServiceRequest.localization.city}</span></p>
+        )}
+        <p className='ebokp'>Opis: <span style={{color:"gray"}}>{selectedServiceRequest.description}</span></p>
       </div>
+    )}
+  </Modal>
+)}
+
+
+
     </div>
   );
 };

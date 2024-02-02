@@ -3,7 +3,7 @@
 import axios from 'axios';
 import AuthService from './auth';
 import { jwtDecode } from 'jwt-decode'; 
-
+axios.defaults.withCredentials = true;
 const instance = axios.create({
   baseURL: "http://localhost:8000/api/public",
   headers: {
@@ -110,7 +110,7 @@ export const loginUser = async (credentials) => {
 };
 
 export const confirmLogin = async ({code}) => {
-  axios.defaults.withCredentials = true;
+  
   try {
       const response = await axios.post('http://localhost:8000/api/login/2fa_check', {authCode:code});
         /*const response = fetch('http://localhost:8000/api/login/2fa_check',{

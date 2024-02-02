@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import instance from '../../externals/instance';
 import '../../styles/EbokHome.css';
-import AuthService from '../../externals/auth';
+import logo from '../../assets/graphics/favicon.png';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { IoMan, FaFileInvoice, FaFileContract, FaAddressBook, IoMdSettings, FaEnvelope, MdRouter, MdLocalOffer, FaDollarSign, MdOutlineMiscellaneousServices, RiCustomerService2Fill } from "../../assets/graphics/icons/iconImports";
 
@@ -52,7 +52,16 @@ const Profile = () => {
       <h2 style={{ textAlign: "center" }}>Informacje o Twoim koncie</h2>
 
       {profileDetails ? (
+        
         <div className="profile-grid">
+          
+          {/* Logo */}
+          <div className="profile-section">
+            <h3 className='ebokh3'> CRM Connect</h3>
+            <div className="ebokvalue"><img src={logo} alt="CRMConnect Logo" className='logo'/></div>
+            <div className="ebokvalue"> Witaj ponownie!</div>
+          </div>
+
           {/* Account Details */}
           <div className="profile-section">
             <h3 className='ebokh3'>Podstawowe dane</h3>
